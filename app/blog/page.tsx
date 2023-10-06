@@ -28,6 +28,12 @@ const getPosts = async () => {
    return data.posts.nodes;
 };
 
+function formatDate(dateString: string | number | Date) {
+   const options: Intl.DateTimeFormatOptions = { year: "numeric", month: "long", day: "numeric" };
+   const formattedDate = new Date(dateString).toLocaleDateString("en-US", options);
+   return formattedDate;
+}
+
 export default async function BlogHome() {
    const allPosts = await getPosts();
 
@@ -45,7 +51,7 @@ export default async function BlogHome() {
             <p className="relative z-10 text-center text-pink-400 pb-8 text-2xl">Lees de laatste blogs!</p>
          </div>
 
-         <div className="py-8">
+         <div className="py-8 container mx-auto lg:max-w-5xl post-list">
             <ul>
                {allPosts.map((post: Post) => (
                   <li key={post.slug} className="grid grid-cols-5 gap-4 mb-4">
@@ -59,6 +65,7 @@ export default async function BlogHome() {
                               {post.title}
                            </Link>
                         </h2>
+                        <div className="py-4">Geplaatst op {formatDate(post.date)}</div>
                         <div className="text-lg" dangerouslySetInnerHTML={{ __html: post.excerpt }}></div>
                         <div className="py-4">
                            geplaatst onder{" "}
