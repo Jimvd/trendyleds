@@ -1,3 +1,31 @@
-export default function Post() {
-   return <h1>This is a post</h1>;
+import SiteHeader from "@/components/navigation/MainMenu/navigation";
+import { query } from "@/lib/graphql/lib/query";
+import { GET_CONTENT } from "@/lib/graphql/singlepost";
+import { notFound } from "next/navigation";
+
+const getSinglePost = async (slug: string) => {
+   const { data } = await query({
+      query: GET_CONTENT,
+      variables: {
+         slug: slug,
+      },
+      revalidate: true,
+   });
+
+   if (!data) throw new Error("Kon berichten niet ophalen");
+   if (!data || !data.post) return notFound();
+
+   return data.post;
+};
+
+export default async function singlePost({ params }: { params: { PostSlug: string } }) {
+   const post = await getSinglePost(params.PostSlug);
+
+   return (
+      <>
+         <SiteHeader />
+
+         {post.title}
+      </>
+   );
 }
