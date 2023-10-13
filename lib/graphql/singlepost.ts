@@ -1,5 +1,5 @@
 export const GET_CONTENT = `
-query getSinglePost($slug: String) {
+query getSinglePost($slug: ID!) {
   post(id: $slug, idType: SLUG) {
     content(format: RENDERED)
     excerpt(format: RENDERED)

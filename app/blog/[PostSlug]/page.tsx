@@ -1,6 +1,7 @@
 import SiteHeader from "@/components/navigation/MainMenu/navigation";
 import { query } from "@/lib/graphql/lib/query";
 import { GET_CONTENT } from "@/lib/graphql/singlepost";
+import { notFound } from "next/navigation";
 
 const getSinglePost = async (slug: string) => {
    const { data } = await query({
@@ -11,7 +12,8 @@ const getSinglePost = async (slug: string) => {
       revalidate: true,
    });
 
-   if (!data.post) throw new Error("Kon berichten niet ophalen");
+   if (!data) throw new Error("Kon berichten niet ophalen");
+   if (!data || !data.post) return notFound();
 
    return data.post;
 };
