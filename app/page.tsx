@@ -1,8 +1,23 @@
-import Head from "next/head";
 import SiteHeader from "@/components/navigation/MainMenu/navigation";
+import { fetchWooCommerceProducts } from "@/utils/wooCommerceApi";
+import { Product } from "@/utils/wooCommerceTypes";
 import Link from "next/link";
 
-export default function Home() {
+interface Props {
+   product: Product[];
+}
+
+const getProducts = async () => {
+   const products = await fetchWooCommerceProducts();
+
+   if (!products) throw new Error("Kon producten niet ophalen");
+
+   return products;
+};
+
+export default async function Home() {
+   const products = await getProducts();
+
    return (
       <>
          <title>KKeijzer | Stijlvolle Dameskleding en Modetrends - Ontdek Onze Collectie</title>
