@@ -1,8 +1,17 @@
-import Head from "next/head";
+import ProductCard from "@/components/display/Card/productCard";
 import SiteHeader from "@/components/navigation/MainMenu/navigation";
+import { fetchWooCommerceProducts } from "@/utils/wooCommerceApi";
+import { Product } from "@/utils/wooCommerceTypes";
 import Link from "next/link";
 
-export default function Home() {
+interface Props {
+   product: Product[];
+}
+
+export default async function Home() {
+   // Deze functie fetcht al je products, maar je moet hem nog wel destructuren (en ik heb hem een alias gegeven, i.p.v. "Data")
+   const { data: products } = await fetchWooCommerceProducts();
+
    return (
       <>
          <title>KKeijzer | Stijlvolle Dameskleding en Modetrends - Ontdek Onze Collectie</title>
