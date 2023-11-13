@@ -7,16 +7,11 @@ interface Props {
    product: Product[];
 }
 
-const getProducts = async () => {
-   const products = await fetchWooCommerceProducts();
-
-   if (!products) throw new Error("Kon producten niet ophalen");
-
-   return products;
-};
-
 export default async function Home() {
-   const products = await getProducts();
+   // Deze functie fetcht al je products, maar je moet hem nog wel destructuren (en ik heb hem een alias gegeven, i.p.v. "Data")
+   const { data: products } = await fetchWooCommerceProducts();
+
+   console.log(products);
 
    return (
       <>

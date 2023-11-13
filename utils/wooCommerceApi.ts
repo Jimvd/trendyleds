@@ -9,12 +9,12 @@ const api = new WooCommerceRestApi({
 });
 
 // fetch all products from WooCommerce //
+// fetch all products from WooCommerce //
 export async function fetchWooCommerceProducts() {
     try {
         const response = await api.get("products");
-        console.log(response);
         return response;
     } catch (error) {
-
+        throw new Error(error);
     }
 }
