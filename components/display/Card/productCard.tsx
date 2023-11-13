@@ -10,13 +10,13 @@ const ProductCard = (props: Props) => {
 
    return (
       <div className="w-full">
-         <div className="relative w-full">
+         <div className="relative w-full" style={{ aspectRatio: "16/9" }}>
             <Image src={product.images[0].src} alt={product.images[0].alt} layout="fill" objectFit="cover" />
          </div>
          <div className="w-full px-4 pt-5 pb-7 flex justify-center gap-12">
             <span>{product.name}</span>
             <span>
-               <strong>£{product.regular_price}</strong>
+               <strong>€{product.regular_price}</strong>
             </span>
          </div>
       </div>

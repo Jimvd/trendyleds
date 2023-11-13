@@ -1,3 +1,4 @@
+import ProductCard from "@/components/display/Card/productCard";
 import SiteHeader from "@/components/navigation/MainMenu/navigation";
 import { fetchWooCommerceProducts } from "@/utils/wooCommerceApi";
 import { Product } from "@/utils/wooCommerceTypes";
@@ -10,8 +11,6 @@ interface Props {
 export default async function Home() {
    // Deze functie fetcht al je products, maar je moet hem nog wel destructuren (en ik heb hem een alias gegeven, i.p.v. "Data")
    const { data: products } = await fetchWooCommerceProducts();
-
-   console.log(products);
 
    return (
       <>
