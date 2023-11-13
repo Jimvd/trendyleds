@@ -1,3 +1,3 @@
-export default function Page() {
-   return <h1> this is just a page</h1>;
+export default function Product() {
+   return <h1> Hi ik ben een product!</h1>;
 }

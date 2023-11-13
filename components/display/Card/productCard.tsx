@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Product } from "../../../utils/wooCommerceTypes";
+import Link from "next/link";
 
 interface Props {
    product: Product;
@@ -7,19 +8,30 @@ interface Props {
 
 const ProductCard = (props: Props) => {
    const { product } = props;
-
+   console.log(product);
    return (
-      <div className="w-full">
-         <div className="relative w-full" style={{ aspectRatio: "16/9" }}>
-            <Image src={product.images[0].src} alt={product.images[0].alt} layout="fill" objectFit="cover" />
+      <Link href={`/${product.slug}`}>
+         <div className="max-w-md rounded shadow-md block">
+            <div className="relative group" style={{ aspectRatio: "4/3" }}>
+               <Image src={product.images[0].src} alt={product.images[0].alt} layout="fill" objectFit="cover" />
+               <Image
+                  className="hidden group-hover:block"
+                  src={product.images[1].src}
+                  alt={product.images[1].alt}
+                  layout="fill"
+                  objectFit="cover"
+               />
+            </div>
+            <div className="py-3 px-4">
+               <div className="mb-2">
+                  <span className="text-lg font-semibold">{product.name}</span>
+               </div>
+               <div>
+                  <span className="font-semibold">€{product.regular_price}</span>
+               </div>
+            </div>
          </div>
-         <div className="w-full px-4 pt-5 pb-7 flex justify-center gap-12">
-            <span>{product.name}</span>
-            <span>
-               <strong>€{product.regular_price}</strong>
-            </span>
-         </div>
-      </div>
+      </Link>
    );
 };
 
