@@ -13,6 +13,12 @@ export default async function Home() {
    // Deze functie fetcht al je products, maar je moet hem nog wel destructuren (en ik heb hem een alias gegeven, i.p.v. "Data")
    const { data: products } = await fetchWooCommerceProducts();
 
+   const selectedCategoryId = 18;
+
+   const filteredProducts = products.filter((product: { categories: any[] }) => {
+      return product.categories.some((category) => category.id === selectedCategoryId);
+   });
+
    return (
       <>
          <title>KKeijzer | Stijlvolle Dameskleding en Modetrends - Ontdek Onze Collectie</title>
@@ -46,7 +52,7 @@ export default async function Home() {
                </div>
                <div className="mx-auto max-w-screen-xl my-8">
                   <div className="grid grid-cols-1 gap-3 lg:m-0 lg:grid-cols-3">
-                     {products.map((product: Product) => (
+                     {filteredProducts.map((product: Product) => (
                         <div key={product.id} className="">
                            <ProductCard product={product} />
                         </div>

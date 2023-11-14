@@ -8,19 +8,21 @@ interface Props {
 
 const ProductCard = (props: Props) => {
    const { product } = props;
-   console.log(product);
+
    return (
       <Link href={`/${product.slug}`}>
          <div className="max-w-md rounded shadow-md block">
             <div className="relative group" style={{ aspectRatio: "4/3" }}>
                <Image src={product.images[0].src} alt={product.images[0].alt} layout="fill" objectFit="cover" />
-               <Image
-                  className="hidden group-hover:block"
-                  src={product.images[1].src}
-                  alt={product.images[1].alt}
-                  layout="fill"
-                  objectFit="cover"
-               />
+               {product.images[1] && (
+                  <Image
+                     className="hidden group-hover:block"
+                     src={product.images[1].src}
+                     alt={product.images[1].alt}
+                     layout="fill"
+                     objectFit="cover"
+                  />
+               )}
             </div>
             <div className="py-3 px-4">
                <div className="mb-2">
