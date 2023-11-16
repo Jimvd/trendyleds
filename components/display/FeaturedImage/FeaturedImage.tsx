@@ -4,7 +4,7 @@ import Link from "next/link";
 import type { FeaturedImageProps } from "./FeaturedImage.types";
 
 export default function FeaturedImage({ post }: { post: FeaturedImageProps }) {
-   const defaultFeaturedImage = "https://www.trendyleds.nl/wp-content/uploads/2023/04/h_pet_cat_01.jpg";
+   const defaultFeaturedImage = "http://www.jpcms.nl/wp-content/uploads/2023/11/storebanner.jpg";
    const defaultWidth = 400;
    const defaultHeight = 200;
 

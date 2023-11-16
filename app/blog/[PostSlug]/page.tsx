@@ -24,7 +24,7 @@ export default async function singlePost({ params }: { params: { PostSlug: strin
 
    return (
       <>
-         <div className="w-1920 h-1000 bg-[url('/storebanner.jpg')] relative">
+         <div className="w-1920 h-1000  relative">
             <div className="absolute bg-slate-900 inset-0 z-0 opacity-40"></div>
             <SiteHeader />
          </div>

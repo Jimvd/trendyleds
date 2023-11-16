@@ -1,5 +1,6 @@
 import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
 
+
 // initialise the WooCommerceRestApi //
 const api = new WooCommerceRestApi({
     url: "https://www.jpcms.nl/",
@@ -13,10 +14,10 @@ export async function fetchWooCommerceProducts() {
     try {
         const response = await api.get("products");
         return response;
-    } catch (error) {
-        throw new Error(
 
-        );
+    } catch (error) {
+        throw new Error(`Fout bij het ophalen van producten: `);
     }
 
 }
+

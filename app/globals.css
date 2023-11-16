@@ -1,6 +1,22 @@
+html,
+body {
+   margin: 0;
+   padding: 0;
+   height: 100dvh;
+   -webkit-font-smoothing: antialiased;
+   font-family: "Karla", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans,
+      Droid Sans, Helvetica Neue, sans-serif;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+   font-family: "Karla";
+   src: url("/public/fonts/Karla-Italic-VariableFont_wght.ttf");
+   font-display: swap;
+}
 
 :root {
    --foreground-rgb: 0, 0, 0;
