@@ -21,3 +21,13 @@ export async function fetchWooCommerceProducts() {
 
 }
 
+// Fetch a single product by slug
+export async function fetchWooCommerceProductBySlug(productSlug: string) {
+    try {
+        const response = await api.get(`products?slug=${productSlug}`);
+        // Assuming the product is in the first position of the 'data' array
+        return response.data.length ? response.data[0] : null;
+    } catch (error) {
+        throw new Error(`Error fetching product with slug `);
+    }
+}

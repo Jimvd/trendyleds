@@ -54,7 +54,7 @@ export default async function Home() {
                   </h2>
                   <div className="grid grid-cols-1 gap-3 lg:m-0 lg:grid-cols-3">
                      {filteredProducts.map((product: Product) => (
-                        <div key={product.id} className="">
+                        <div key={product.id}>
                            <ProductCard product={product} />
                         </div>
                      ))}

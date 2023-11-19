@@ -168,7 +168,7 @@ export interface Image {
 export interface Attribute {
     id: number;
     name: string;
-    option: string;
+    options: any;
 }
 
 export interface MetaData {
