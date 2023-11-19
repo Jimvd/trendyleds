@@ -1,5 +1,3 @@
-
-
 export const MENU_ITEMS = [{
     id: 1,
     label: "Kleding", link: "kleding",
