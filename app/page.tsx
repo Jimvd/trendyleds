@@ -1,5 +1,4 @@
 import ProductCard from "@/components/display/Card/productCard";
-import SiteHeader from "@/components/navigation/MainMenu/navigation";
 import { fetchWooCommerceProducts } from "@/utils/wooCommerceApi";
 import { Product } from "@/utils/wooCommerceTypes";
 import Link from "next/link";
@@ -28,10 +27,6 @@ export default async function Home() {
          />
 
          <div className="min-h-screen relative ">
-            <div className="top-bar bg-primary text-white py-2 text-center">
-               <span className="text-white">★ Gratis verzending vanaf €75 in NL ★</span>
-            </div>
-            <SiteHeader />
             <main>
                <div className="min-h-[50vh] relative ">
                   <div className="bg-[url('/storebanner.jpg')] min-h-[50vh] bg-cover bg-center flex flex-col items-center justify-center  relative">

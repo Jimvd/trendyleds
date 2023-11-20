@@ -11,9 +11,11 @@ const api = new WooCommerceRestApi({
 
 // fetch all products from WooCommerce //
 export async function fetchWooCommerceProducts() {
+
     try {
         const response = await api.get("products");
         return response;
+
 
     } catch (error) {
         throw new Error(`Fout bij het ophalen van producten: `);
