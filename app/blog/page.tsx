@@ -43,7 +43,6 @@ export default async function BlogHome() {
 
          <div className="w-1920 h-1000  relative">
             <div className="absolute bg-slate-900 inset-0 z-0 opacity-40"></div>
-            <SiteHeader />
          </div>
 
          <div className="shadow-sm border-b-4 border-pink-400">
