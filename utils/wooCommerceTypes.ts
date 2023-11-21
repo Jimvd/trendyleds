@@ -168,7 +168,14 @@ export interface Image {
 export interface Attribute {
     id: number;
     name: string;
-    options: any;
+    options: string[];
+}
+
+export interface Variation {
+    selectedOptions: any;
+    availableForSale: boolean;
+    id: number;
+    attributes: Attribute[];
 }
 
 export interface MetaData {
@@ -279,6 +286,7 @@ export interface Shipping {
 }
 
 export interface Variation {
+    map(arg0: (variant: any) => any): { [key: string]: string | boolean; id: string; }[];
     id: number;
     date_created: Date;
     date_created_gmt: Date;

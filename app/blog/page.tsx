@@ -42,11 +42,11 @@ export default async function BlogHome() {
          <title>Blogs</title>
 
          <div className="w-1920 h-1000  relative">
-            <div className="absolute bg-slate-900 inset-0 z-0 opacity-40"></div>
+            <div className="absolute bg-slate-900 inset-0 opacity-40"></div>
          </div>
 
          <div className="shadow-sm border-b-4 border-pink-400">
-            <h1 className="text-4xl text-center relative z-10 py-8 text-pink-400">BLOG</h1>
+            <h1 className="text-4xl text-center relative py-8 text-pink-400">BLOG</h1>
             <p className="relative z-10 text-center text-pink-400 pb-8 text-2xl">Lees de laatste blogs!</p>
          </div>
 

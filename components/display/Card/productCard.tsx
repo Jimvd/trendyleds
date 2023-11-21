@@ -29,7 +29,7 @@ const ProductCard = (props: Props) => {
                   <span className="text-lg font-semibold">{product.name}</span>
                </div>
                <div>
-                  <span className="font-semibold">€{product.regular_price}</span>
+                  <span className="font-semibold">€{product.price}</span>
                </div>
             </div>
          </div>

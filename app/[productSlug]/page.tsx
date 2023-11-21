@@ -1,4 +1,6 @@
 import ImageCarousel from "@/components/display/ImageCarrousel/ImageCarrousel";
+import VariantSelector from "@/components/display/VariantSelector/VariantSelector";
+
 import { fetchWooCommerceProductBySlug } from "@/utils/wooCommerceApi";
 import { Product } from "@/utils/wooCommerceTypes";
 
@@ -30,19 +32,12 @@ export default async function ProductBySlug({
                <ImageCarousel images={product.images} />
             </div>
             <div className="my-12">
-               <h1 className="font-semibold capitalize tracking-wide text-secondary text-2xl ">{product.name}</h1>
-               {/* {product.attributes.map((attribute: any) => (
-                  <div key={attribute.id}>
-                     <p className="font-semibold">{attribute.name}:</p>
-                     <div className="flex">
-                        {attribute.options.map((option: any) => (
-                           <div key={option} className="border p-2 ml-2">
-                              {option}
-                           </div>
-                        ))}
-                     </div>
-                  </div>
-               ))} */}
+               <h1 className="font-semibold capitalize tracking-wide  text-secondary text-2xl ">{product.name}</h1>
+               <hr className="mt-4 mb-8 text-primary"></hr>
+
+               <VariantSelector attributes={product.attributes} variations={product.variations} />
+
+               <p className="text-xl">€{product.price}</p>
             </div>
          </div>
       </>
