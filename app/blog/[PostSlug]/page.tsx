@@ -25,7 +25,7 @@ export default async function singlePost({ params }: { params: { PostSlug: strin
    return (
       <>
          <div className="w-1920 h-1000  relative">
-            <div className="absolute bg-slate-900 inset-0 z-0 opacity-40"></div>
+            <div className="absolute bg-slate-900 inset-0 opacity-40"></div>
          </div>
          <article className="mt-4 flex w-full flex-col-reverse justify-center lg:my-10 lg:flex-row">
             <div className="px-3 lg:mr-4 lg:max-w-2/3">
