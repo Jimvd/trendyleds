@@ -1,4 +1,5 @@
 import ImageCarousel from "@/components/display/ImageCarrousel/ImageCarrousel";
+import ProductUsp from "@/components/display/ProductUsp/ProductUsp";
 import VariantSelector from "@/components/display/VariantSelector/VariantSelector";
 
 import { fetchWooCommerceProductBySlug } from "@/utils/wooCommerceApi";
@@ -18,7 +19,7 @@ export default async function ProductBySlug({
    const getProductData = async () => {
       const productSlug = params.productSlug;
       const productBySlug = await fetchWooCommerceProductBySlug(productSlug);
-      console.log(productBySlug);
+      // console.log(productBySlug);
 
       return productBySlug;
    };
@@ -32,12 +33,28 @@ export default async function ProductBySlug({
                <ImageCarousel images={product.images} />
             </div>
             <div className="my-12">
-               <h1 className="font-semibold capitalize tracking-wide  text-secondary text-2xl ">{product.name}</h1>
-               <hr className="mt-4 mb-8 text-primary"></hr>
+               <h1 className="font-semibold capitalize tracking-wide mb-8 text-secondary text-2xl ">{product.name}</h1>
 
                <VariantSelector attributes={product.attributes} variations={product.variations} />
 
-               <p className="text-xl">€{product.price}</p>
+               <p className="text-2xl">
+                  {product.sale_price ? (
+                     <>
+                        <span className="text-primary font-bold line-through">€{product.regular_price}</span>
+                        <span className="ml-2">€{product.sale_price}</span>
+                     </>
+                  ) : (
+                     `€${product.price}`
+                  )}
+               </p>
+               <button
+                  className="h-11 w-full max-w-sm my-4 bg-primary text-white"
+                  title="sluit contact menu"
+                  role="modal"
+               >
+                  In winkelwagen
+               </button>
+               <ProductUsp />
             </div>
          </div>
       </>
