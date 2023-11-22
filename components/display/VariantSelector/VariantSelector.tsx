@@ -30,20 +30,20 @@ const VariantSelector: React.FC<VariantSelectorProps> = ({ attributes, variation
       <div>
          {attributes.map((attribute) => (
             <div key={attribute.id} className="mb-6">
-               <select
-                  value={selectedAttributes[attribute.name] || ""}
-                  onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                     handleAttributeChange(attribute.name, e.target.value)
-                  }
-                  className="h-11 w-full  max-w-sm text-xl lg:text-sm rounded shadow-md"
-               >
-                  <option value="">Selecteer je {attribute.name}</option>
+               <p className="text-sm font-semibold mb-2">{attribute.name}:</p>
+               <div className="flex flex-wrap gap-2">
                   {attribute.options.map((option) => (
-                     <option key={option} value={option}>
+                     <div
+                        key={option}
+                        onClick={() => handleAttributeChange(attribute.name, option)}
+                        className={`cursor-pointer border text-sm  p-4 py-2 rounded ${
+                           selectedAttributes[attribute.name] === option ? "bg-primary text-white" : ""
+                        }`}
+                     >
                         {option}
-                     </option>
+                     </div>
                   ))}
-               </select>
+               </div>
             </div>
          ))}
       </div>
