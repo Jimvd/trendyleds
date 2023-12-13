@@ -33,3 +33,4 @@ export async function fetchWooCommerceProductBySlug(productSlug: string) {
         throw new Error(`Error fetching product with slug `);
     }
 }
+
