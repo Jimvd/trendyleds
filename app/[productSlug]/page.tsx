@@ -1,3 +1,4 @@
+import Accordion from "@/components/display/Accordion/Accordion";
 import ImageCarousel from "@/components/display/ImageCarrousel/ImageCarrousel";
 import ProductUsp from "@/components/display/ProductUsp/ProductUsp";
 import VariantSelector from "@/components/display/VariantSelector/VariantSelector";
@@ -19,7 +20,6 @@ export default async function ProductBySlug({
    const getProductData = async () => {
       const productSlug = params.productSlug;
       const productBySlug = await fetchWooCommerceProductBySlug(productSlug);
-      // console.log(productBySlug);
 
       return productBySlug;
    };
@@ -55,6 +55,7 @@ export default async function ProductBySlug({
                   In winkelwagen
                </button>
                <ProductUsp />
+               {product.description && <Accordion title="Productbeschrijving" content={product.description} />}
             </div>
          </div>
       </>

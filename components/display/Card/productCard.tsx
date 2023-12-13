@@ -13,8 +13,12 @@ const ProductCard = (props: Props) => {
       <Link href={`/${product.slug}`}>
          <div className="max-w-md rounded shadow-md block">
             <div className="relative group" style={{ aspectRatio: "4/3" }}>
-               <Image src={product.images[0].src} alt={product.images[0].alt} layout="fill" objectFit="cover" />
-               {product.images[1] && (
+               {product.images && product.images.length > 0 ? (
+                  <Image src={product.images[0].src} alt={product.images[0].alt} layout="fill" objectFit="cover" />
+               ) : (
+                  <Image src="/kkeijzer.png" width={200} height={100} alt="Product binnenkort verkrijgbaar" />
+               )}
+               {product.images && product.images.length > 1 && (
                   <Image
                      className="hidden group-hover:block"
                      src={product.images[1].src}
