@@ -10,12 +10,14 @@ interface Props {
 export default async function Home() {
    // Deze functie fetcht al je products, maar je moet hem nog wel destructuren (en ik heb hem een alias gegeven, i.p.v. "Data")
    const { data: products } = await fetchWooCommerceProducts();
-   console.log(products);
-   const selectedCategoryId = 18;
 
-   const filteredProducts = products.filter((product: { categories: any[] }) => {
-      return product.categories.some((category) => category.id === selectedCategoryId);
+   const sortedProducts = products.sort((a: any, b: any) => {
+      const dateA = new Date(a.date_created).getTime();
+      const dateB = new Date(b.date_created).getTime();
+      return dateB - dateA;
    });
+
+   const latestProducts = sortedProducts.slice(0, 3);
 
    return (
       <>
@@ -48,7 +50,7 @@ export default async function Home() {
                      Nieuwste producten
                   </h2>
                   <div className="grid grid-cols-1 gap-3 lg:m-0 lg:grid-cols-3">
-                     {filteredProducts.map((product: Product) => (
+                     {latestProducts.map((product: Product) => (
                         <div key={product.id}>
                            <ProductCard product={product} />
                         </div>

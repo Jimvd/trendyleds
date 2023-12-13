@@ -4,7 +4,6 @@ import { FiChevronDown, FiX, FiMenu } from "react-icons/fi";
 import Link from "next/link";
 import Image from "next/image";
 import { MENU_ITEMS } from "@/constants/navigation";
-import NextBreadcrumb from "@/components/display/NextBreadcrumbs/NextBreadcrumbs";
 
 export default function SiteHeader() {
    const [menuOpen, setMenuOpen] = useState(false);
@@ -22,7 +21,6 @@ export default function SiteHeader() {
    };
 
    const handleChevronToggle = (index: any) => {
-      // Activeer de accordion wanneer op het chevron-icoon wordt geklikt
       if (menuOpen) {
          setActiveAccordion(activeAccordion === index ? null : index);
       }
