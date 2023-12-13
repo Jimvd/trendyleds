@@ -34,3 +34,24 @@ export async function fetchWooCommerceProductBySlug(productSlug: string) {
     }
 }
 
+export async function fetchWooCommerceProductsByCategorySlug(categorySlug: string) {
+    try {
+        // Eerst de categoriegegevens ophalen op basis van de slug
+        const categoryResponse = await api.get(`products/categories?slug=${categorySlug}`);
+
+        if (categoryResponse.data.length === 0) {
+            throw new Error(`Categorie met slug ${categorySlug} niet gevonden.`);
+        }
+
+        // Vervolgens de producten ophalen die aan deze categorie zijn gekoppeld
+        const categoryId = categoryResponse.data[0].id;
+        const productsResponse = await api.get(`products?category=${categoryId}`);
+
+        return productsResponse.data;
+
+    } catch (error) {
+        throw new Error(`Fout bij het ophalen van producten voor categorie met slug ${categorySlug}`);
+    }
+}
+
+
