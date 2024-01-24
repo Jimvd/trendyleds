@@ -9,8 +9,6 @@ interface Props {
 export default async function Kleding() {
    const products = await fetchWooCommerceProducts();
 
-   console.log(products);
-
    return (
       <>
          <div className="mx-auto max-w-screen-2xl ">

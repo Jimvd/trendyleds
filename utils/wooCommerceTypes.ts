@@ -97,7 +97,7 @@ export interface MetaDatum {
     value: string;
 }
 
-interface LineItem {
+export interface LineItem {
     id: number;
     name: string;
     product_id: number;

@@ -58,7 +58,7 @@ export default function SiteHeader() {
                                  activeAccordion === index ? "mo:border-b-2 border-gray" : "mo:border-b-2 border-gray"
                               } flex py-2`}
                            >
-                              <Link href={item.link} className="uppercase">
+                              <Link href={item.path} className="uppercase">
                                  {item.label}
                               </Link>
 
