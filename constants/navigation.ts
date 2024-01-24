@@ -1,25 +1,27 @@
 export const MENU_ITEMS = [{
     id: 1,
-    label: "Kleding", link: "kleding",
+    label: "Kleding", path: "kleding",
     subitems: [
-        { name: "Broeken", link: "kleding/broeken" },
-        { name: "jurken", link: "kleding/jurken" },
+        { name: "Broeken", link: "/kleding/broeken" },
+        { name: "jurken", link: "/kleding/jurken" },
+
     ],
     hasChevron: true,
 },
 {
     id: 3,
-    label: "Blog", link: "blog",
+    label: "Blog", path: "blog",
     hasChevron: false,
 },
 {
     id: 4,
-    label: "Contact", link: "contact",
+    label: "Contact", path: "contact",
     hasChevron: false,
 },
 {
     id: 5,
-    label: "About", link: "about",
+    label: "About", path: "about",
     hasChevron: false,
 },
+
 ]
