@@ -34,7 +34,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts app/category/page.tsx",
     ".next/types/**/*.ts"
-  ],
+, "context/Context.js"  ],
   "exclude": [
     "node_modules"
   ]

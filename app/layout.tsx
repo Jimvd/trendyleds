@@ -15,6 +15,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <div className="top-bar bg-primary text-white py-2 text-center">
                <span className="text-white">★ Gratis verzending vanaf €75 in NL ★</span>
             </div>
+
             <SiteHeader />
             <NextBreadcrumb
                homeElement={"Home"}
@@ -24,7 +25,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                listClasses="hover:underline mx-2 text-xs "
                capitalizeLinks
             />
-
             {children}
          </body>
       </html>

@@ -1,3 +1,4 @@
+import AddToCart from "@/components/Cart/AddToCart";
 import Accordion from "@/components/display/Accordion/Accordion";
 import ImageCarousel from "@/components/display/ImageCarrousel/ImageCarrousel";
 import ProductUsp from "@/components/display/ProductUsp/ProductUsp";
@@ -47,13 +48,7 @@ export default async function ProductBySlug({
                      `€${product.price}`
                   )}
                </p>
-               <button
-                  className="h-11 w-full max-w-sm my-4 bg-primary text-white"
-                  title="sluit contact menu"
-                  role="modal"
-               >
-                  In winkelwagen
-               </button>
+               <AddToCart />
                <ProductUsp />
                {product.description && <Accordion title="Productbeschrijving" content={product.description} />}
             </div>
