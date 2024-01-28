@@ -16,7 +16,7 @@ export default function AddToCart() {
          className=" border  w-full max-w-sm mt-4 py-2 px-8 rounded-lg bg-primary text-white hover:bg-black hover:text-white"
          onClick={() => handleAddToCartButton}
       >
-         <span>Add To Cart</span>
+         <span>In winkelwagen</span>
       </button>
    );
 }
