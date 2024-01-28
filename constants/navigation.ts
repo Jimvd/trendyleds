@@ -1,6 +1,6 @@
 export const MENU_ITEMS = [{
     id: 1,
-    label: "Kleding", path: "kleding",
+    label: "Kleding", path: "/kleding",
     subitems: [
         { name: "Broeken", link: "/kleding/broeken" },
         { name: "jurken", link: "/kleding/jurken" },
@@ -10,17 +10,17 @@ export const MENU_ITEMS = [{
 },
 {
     id: 3,
-    label: "Blog", path: "blog",
+    label: "Blog", path: "/blog",
     hasChevron: false,
 },
 {
     id: 4,
-    label: "Contact", path: "contact",
+    label: "Contact", path: "/contact",
     hasChevron: false,
 },
 {
     id: 5,
-    label: "About", path: "about",
+    label: "About", path: "/about",
     hasChevron: false,
 },
 

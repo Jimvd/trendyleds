@@ -1,9 +1,12 @@
 "use client";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { FiChevronDown, FiX, FiMenu } from "react-icons/fi";
 import Link from "next/link";
 import Image from "next/image";
 import { MENU_ITEMS } from "@/constants/navigation";
+import Cart from "@/components/Cart";
+import OpenCart from "../../Cart/OpenCart";
+import { Bars3Icon } from "@heroicons/react/24/outline";
 
 export default function SiteHeader() {
    const [menuOpen, setMenuOpen] = useState(false);
@@ -28,16 +31,25 @@ export default function SiteHeader() {
 
    return (
       <header className="z-10 bg-white sticky top-0 max-w-full mo:flex items-center lg:border-b-2 border-gray justify-between container mx-auto">
-         <div className={`logo-area ${menuOpen ? "hidden" : "flex-grow flex py-4 lg:justify-center"}`}>
-            <Link href="/">
-               <Image src="/kkeijzer-v2.png" alt="kkeijzer" width={180} height={120} />
-            </Link>
+         <div className={`logo-area ${menuOpen ? "hidden" : "grid grid-cols-3 py-2 items-center"}`}>
+            <div className="col-span-1">{}</div>
+            <div className="col-span-1 flex justify-center">
+               <Link href="/" className="">
+                  <Image src="/kkeijzer-v2.png" alt="kkeijzer" width={180} height={120} />
+               </Link>
+            </div>
+            <div className="col-span-1 flex justify-end">
+               <Suspense fallback={<OpenCart />}>
+                  <Cart />
+               </Suspense>
+            </div>
          </div>
+
          <div className={` flex lg:border-t-2 lg:py-4 lg:border-gray items-center justify-end mr-4 lg:justify-center`}>
             <nav>
-               <div className="lg:hidden">
+               <div className="lg:hidden ">
                   <button onClick={handleMenuToggle}>
-                     {menuOpen ? <FiX className="text-3xl" /> : <FiMenu className="text-3xl " />}
+                     {menuOpen ? <FiX className="text-3xl" /> : <Bars3Icon className="w-8 h-8 " />}
                   </button>
                </div>
                <ul
