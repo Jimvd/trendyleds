@@ -3,7 +3,7 @@ export const query: (options: {
     variables?: object;
     revalidate: boolean;
 }) => Promise<any> = async (options) => {
-    console.log(options)
+
     return await fetch((process.env.GRAFBASE_API_URL as string), {
         method: "POST",
         headers: {

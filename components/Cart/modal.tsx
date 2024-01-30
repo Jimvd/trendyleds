@@ -1,12 +1,14 @@
 "use client";
-
 import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import OpenCart from "../Cart/OpenCart";
 import { XMarkIcon } from "@heroicons/react/16/solid";
+import { CartView } from "./CartView";
+import { useCart } from "@/context/CartContext";
 
 export default function CartModal() {
    const [openCart, setOpenCart] = useState(false);
+   const { cartTotal } = useCart();
    return (
       <>
          <button aria-label="Open cart" onClick={() => setOpenCart(true)}>
@@ -42,7 +44,7 @@ export default function CartModal() {
                                  <div className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
                                     <div className="flex items-start justify-between">
                                        <Dialog.Title className="text-lg font-medium text-gray-900">
-                                          Shopping cart
+                                          Winkelwagen
                                        </Dialog.Title>
                                        <div className="ml-3 flex h-7 items-center">
                                           <button
@@ -59,37 +61,33 @@ export default function CartModal() {
                                     <div className="mt-8">
                                        <div className="flow-root">
                                           <ul role="list" className="grid grid-cols-1 divide-y divide-gray-200">
-                                             {/* Items*/}
+                                             <CartView />
                                           </ul>
                                        </div>
                                     </div>
                                  </div>{" "}
                                  <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
                                     <div className="flex justify-between text-base font-medium text-gray-900">
-                                       <p>Subtotal</p>
-                                       <p>€69,99</p>
+                                       <p>Totaal</p>
+                                       <p>€{cartTotal.toFixed(2)}</p>
                                     </div>
-                                    <p className="mt-0.5 text-sm text-gray-500">
-                                       Shipping and taxes calculated at checkout.
-                                    </p>
+                                    <p className="mt-0.5 text-sm text-gray-500">Vandaag besteld morgen in huis</p>
                                     <div className="mt-6">
                                        <a
                                           href="#"
                                           className="flex items-center justify-center rounded-md border border-transparent bg-primary px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-sky-700"
                                        >
-                                          Checkout
+                                          Bestellen
                                        </a>
                                     </div>
                                     <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
                                        <p>
-                                          {" "}
-                                          or
                                           <button
                                              type="button"
                                              className="font-medium text-black hover:text-sky-700 px-2"
                                              onClick={() => setOpenCart(false)}
                                           >
-                                             Continue Shopping <span aria-hidden="true"> &rarr;</span>
+                                             Verder winkelen <span aria-hidden="true"> &rarr;</span>
                                           </button>
                                        </p>
                                     </div>

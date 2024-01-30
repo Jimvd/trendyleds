@@ -3,7 +3,6 @@ import Accordion from "@/components/display/Accordion/Accordion";
 import ImageCarousel from "@/components/display/ImageCarrousel/ImageCarrousel";
 import ProductUsp from "@/components/display/ProductUsp/ProductUsp";
 import VariantSelector from "@/components/display/VariantSelector/VariantSelector";
-
 import { fetchWooCommerceProductBySlug } from "@/utils/wooCommerceApi";
 import { Product } from "@/utils/wooCommerceTypes";
 
@@ -48,7 +47,7 @@ export default async function ProductBySlug({
                      `€${product.price}`
                   )}
                </p>
-               <AddToCart />
+               <AddToCart product={product} />
                <ProductUsp />
                {product.description && <Accordion title="Productbeschrijving" content={product.description} />}
             </div>

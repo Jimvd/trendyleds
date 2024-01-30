@@ -7,6 +7,7 @@ import { MENU_ITEMS } from "@/constants/navigation";
 import Cart from "@/components/Cart";
 import OpenCart from "../../Cart/OpenCart";
 import { Bars3Icon } from "@heroicons/react/24/outline";
+import { useCart } from "@/context/CartContext";
 
 export default function SiteHeader() {
    const [menuOpen, setMenuOpen] = useState(false);
@@ -28,6 +29,8 @@ export default function SiteHeader() {
          setActiveAccordion(activeAccordion === index ? null : index);
       }
    };
+
+   const { cartCount } = useCart();
 
    return (
       <header className="z-10 bg-white sticky top-0 max-w-full mo:flex items-center lg:border-b-2 border-gray justify-between container mx-auto">
