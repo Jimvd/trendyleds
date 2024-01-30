@@ -3,7 +3,7 @@ import { useCart } from "@/context/CartContext";
 import { CartItemView } from "./CartItem";
 
 export const CartView = () => {
-   const { cartItems, cartTotal } = useCart();
+   const { cartItems } = useCart();
 
    return (
       <>

@@ -1,4 +1,3 @@
-"use client";
 import { useCart } from "@/context/CartContext";
 import { ShoppingBagIcon } from "@heroicons/react/24/outline";
 

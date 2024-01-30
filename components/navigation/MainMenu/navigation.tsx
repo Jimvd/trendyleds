@@ -30,8 +30,6 @@ export default function SiteHeader() {
       }
    };
 
-   const { cartCount } = useCart();
-
    return (
       <header className="z-10 bg-white sticky top-0 max-w-full mo:flex items-center lg:border-b-2 border-gray justify-between container mx-auto">
          <div className={`logo-area ${menuOpen ? "hidden" : "grid grid-cols-3 py-2 items-center"}`}>
