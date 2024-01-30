@@ -68,6 +68,11 @@ export interface Product {
     _links: Links;
 }
 
+export type CartItem = {
+    product: Product;
+    quantity: number;
+};
+
 export interface Category {
     id: number;
     name: string;
@@ -100,6 +105,7 @@ export interface MetaDatum {
 export interface LineItem {
     id: number;
     name: string;
+    product: Product;
     product_id: number;
     variation_id: number;
     quantity: number;
@@ -131,7 +137,7 @@ interface Meta_Data_Line_Item {
     value: string;
 }
 
-interface Cart {
+export interface Cart {
     // built from my own object sending in, disregard if necessary!
     payment_method: string;
     payment_method_title: string;

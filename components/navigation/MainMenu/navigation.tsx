@@ -7,6 +7,7 @@ import { MENU_ITEMS } from "@/constants/navigation";
 import Cart from "@/components/Cart";
 import OpenCart from "../../Cart/OpenCart";
 import { Bars3Icon } from "@heroicons/react/24/outline";
+import { useCart } from "@/context/CartContext";
 
 export default function SiteHeader() {
    const [menuOpen, setMenuOpen] = useState(false);
