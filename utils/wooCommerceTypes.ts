@@ -66,6 +66,8 @@ export interface Product {
     menu_order: number;
     meta_data: MetaDatum[];
     _links: Links;
+    product_id: number;
+    variation_id: number;
 }
 
 export type CartItem = {
