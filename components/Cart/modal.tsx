@@ -74,7 +74,7 @@ export default function CartModal() {
                                     <p className="mt-0.5 text-sm text-gray-500">Vandaag besteld morgen in huis</p>
                                     <div className="mt-6">
                                        <a
-                                          href="#"
+                                          href="/afrekenen"
                                           className="flex items-center justify-center rounded-md border border-transparent bg-primary px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-sky-700"
                                        >
                                           Bestellen

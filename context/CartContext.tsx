@@ -1,6 +1,6 @@
 "use client";
 import { CartItem, Product } from "@/utils/wooCommerceTypes";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect, useCallback } from "react";
 
 interface CartContextValue {
    cartItems: CartItem[];
@@ -9,6 +9,7 @@ interface CartContextValue {
    updateCartItemQuantity: (productId: number, quantity: number) => void;
    cartTotal: number;
    cartCount: number;
+   clearCart: () => void;
 }
 
 export const CartContext = createContext<CartContextValue>({
@@ -18,6 +19,7 @@ export const CartContext = createContext<CartContextValue>({
    updateCartItemQuantity: () => {},
    cartTotal: 0,
    cartCount: 0,
+   clearCart: () => {},
 });
 
 export const useCart = () => {
@@ -31,6 +33,19 @@ interface Props {
 export const CartProvider = ({ children }: Props) => {
    const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
+   useEffect(() => {
+      const storedCartItems = localStorage.getItem("cartItems");
+      const items = storedCartItems ? JSON.parse(storedCartItems) : [];
+      setCartItems(items);
+   }, []);
+
+   const saveToLocalStorage = (items: CartItem[]) => {
+      // Check if window is defined to avoid server-side rendering issues
+      if (typeof window !== "undefined") {
+         localStorage.setItem("cartItems", JSON.stringify(items));
+      }
+   };
+
    const addToCart = (product: Product) => {
       const existingCartItemIndex = cartItems.findIndex((item) => item.product.id === product.id);
       if (existingCartItemIndex !== -1) {
@@ -42,14 +57,17 @@ export const CartProvider = ({ children }: Props) => {
          const updatedCartItems = [...cartItems];
          updatedCartItems[existingCartItemIndex] = updatedCartItem;
          setCartItems(updatedCartItems);
+         saveToLocalStorage(updatedCartItems);
       } else {
          setCartItems([...cartItems, { product, quantity: 1 }]);
+         saveToLocalStorage([...cartItems, { product, quantity: 1 }]);
       }
    };
 
    const removeFromCart = (productId: number) => {
       const updatedCartItems = cartItems.filter((item) => item.product.id !== productId);
       setCartItems(updatedCartItems);
+      saveToLocalStorage(updatedCartItems);
    };
 
    const updateCartItemQuantity = (productId: number, quantity: number) => {
@@ -63,8 +81,14 @@ export const CartProvider = ({ children }: Props) => {
          const updatedCartItems = [...cartItems];
          updatedCartItems[existingCartItemIndex] = updatedCartItem;
          setCartItems(updatedCartItems);
+         saveToLocalStorage(updatedCartItems);
       }
    };
+
+   const clearCart = useCallback(() => {
+      setCartItems([]);
+      saveToLocalStorage([]);
+   }, []);
 
    const cartTotal = cartItems.reduce(
       (total, item) => total + (item.product.price as unknown as number) * (item.quantity as number),
@@ -82,6 +106,7 @@ export const CartProvider = ({ children }: Props) => {
             updateCartItemQuantity,
             cartTotal,
             cartCount,
+            clearCart,
          }}
       >
          {children}
