@@ -11,14 +11,18 @@
   "dependencies": {
     "@headlessui/react": "^1.7.18",
     "@heroicons/react": "^2.1.1",
+    "@stripe/stripe-js": "^2.4.0",
     "graphql": "16.8.1",
     "graphql-request": "6.1.0",
+    "micro": "^10.0.1",
     "next": "latest",
+    "next-stripe": "^1.0.0-beta.9",
     "react": "latest",
     "react-dom": "latest",
     "react-icons": "^4.11.0"
   },
   "devDependencies": {
+    "@stripe/react-stripe-js": "^2.4.0",
     "@types/node": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",
@@ -28,6 +32,7 @@
     "eslint": "latest",
     "eslint-config-next": "latest",
     "postcss": "latest",
+    "stripe": "^14.14.0",
     "tailwindcss": "latest",
     "typescript": "latest"
   }

@@ -1,5 +1,5 @@
 import CartModal from "./modal";
 
-export default async function Cart() {
+export default function Cart() {
    return <CartModal />;
 }
