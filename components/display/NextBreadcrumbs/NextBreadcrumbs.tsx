@@ -22,6 +22,11 @@ const NextBreadcrumb = ({
 }: TBreadCrumbProps) => {
    const paths = usePathname();
 
+   // Check if paths is null, return null until it has a valid value
+   if (paths === null) {
+      return null;
+   }
+
    // Check if the current page is the home page
    const isHomePage = paths === "/";
 
