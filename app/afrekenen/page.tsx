@@ -1,16 +1,14 @@
-"use client";
-import React from "react";
-import { CartView } from "@/components/Cart/CartView";
-import { useCart } from "@/context/CartContext";
+import Bestelling from "@/components/Bestelling/Bestelling";
 
 export default function Afrekenen() {
-   const { cartItems, cartTotal } = useCart();
-
    return (
       <>
-         <h1>Afrekenen</h1>
-
-         <CartView />
+         <div>
+            <h1 className="text-3xl border-b text-center py-8 content-center">Checkout</h1>
+            <div className="py-4">
+               <Bestelling />
+            </div>
+         </div>
       </>
    );
 }

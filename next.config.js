@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
    images: {
-      domains: ["www.jpcms.nl"], // Voeg hier de hostnaam toe
+      domains: ["www.jpcms.nl"],
    },
 };
 

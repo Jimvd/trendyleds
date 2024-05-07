@@ -5,7 +5,6 @@ export default function OpenCart() {
    const { cartCount } = useCart();
    const renderCartCount = cartCount > 0 ? <p className="text-sm font-bold text-primary ">{cartCount}</p> : null;
 
-   console.log(cartCount);
    return (
       <div className="relative flex lg:mr-4 text-black transition-colors dark:border-neutral-700 cursor-pointer">
          {renderCartCount}
