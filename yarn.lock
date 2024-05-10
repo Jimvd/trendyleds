@@ -2517,10 +2517,10 @@ stripe@8.132.0:
     "@types/node" ">=8.1.0"
     qs "^6.6.0"
 
-stripe@^14.14.0:
-  version "14.14.0"
-  resolved "https://registry.yarnpkg.com/stripe/-/stripe-14.14.0.tgz#4911e2ef2c97dde0d2832ceaa90525f17f8703ce"
-  integrity sha512-P6lvKHxgDzZXto9VMstG1ucv4Ls0U9nOoQhVZABXJ33kRD7zMwkBy5Y4c3BO59O230uSTkOFPLh87YxVzkp0Mg==
+stripe@^15.6.0:
+  version "15.6.0"
+  resolved "https://registry.yarnpkg.com/stripe/-/stripe-15.6.0.tgz#097eb87661d79c0784495af5bc4cdae32b5d557b"
+  integrity sha512-ARG46eQHMmHspnDpj3QTAH8GyEqtE0nesbzpTtQDT/C9nHvOFYri3mIzHEzArzDcKX7HSleTu2VpYoDZIIH7nA==
   dependencies:
     "@types/node" ">=8.1.0"
     qs "^6.11.0"

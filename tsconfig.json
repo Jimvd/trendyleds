@@ -29,7 +29,9 @@
       ".next/types/**/*.ts app/category/page.tsx",
       ".next/types/**/*.ts",
       "context/Context.js",
-      "pages/api/createOrder.ts"
+      "pages/api/createOrder.ts",
+      "pages/api/webhook.js",
+      "pages/api/stripe-web-hook.js"
    ],
    "exclude": ["node_modules"]
 }
