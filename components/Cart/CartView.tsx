@@ -1,4 +1,5 @@
 "use client";
+
 import { useCart } from "@/context/CartContext";
 import { CartItemView } from "./CartItem";
 
@@ -7,7 +8,6 @@ export const CartView = () => {
 
    return (
       <>
-         {/* <div>{JSON.stringify(cartItems, null, 2)}</div> */}
          {cartItems.length === 0 ? (
             <p> Je hebt nog niks in je winkelwagen</p>
          ) : (

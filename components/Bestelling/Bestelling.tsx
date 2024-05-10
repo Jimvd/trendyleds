@@ -5,6 +5,7 @@ import axios from "axios";
 import { useCart } from "@/context/CartContext";
 import { CartView } from "../Cart/CartView";
 import { useRouter } from "next/navigation";
+import { loadStripe } from "@stripe/stripe-js";
 
 interface OrderItem {
    product_id: number;
@@ -89,6 +90,36 @@ const OrderButton: React.FC = () => {
          })),
       };
       createOrder(testData);
+   };
+
+   const makePayment = async () => {
+      const stripe = await loadStripe(
+         "pk_test_51Of5VfJ1EDSVBNMyfCVIoVLsN8nJG2V79rnQGYM5X4TWobhQYTu3Vm3yphyf5WHHIzCkXYgvUrsFhhqJ2fUnG8Ok00q7mOkWtY"
+      );
+
+      const body = {
+         products: cartItems,
+      };
+
+      const headers = {
+         "Content-Type": "application/json",
+      };
+
+      try {
+         const response = await fetch(`api/create-checkout-session`, {
+            method: "post",
+            headers: headers,
+            body: JSON.stringify(body),
+         });
+
+         const session = await response.json();
+
+         const result = stripe?.redirectToCheckout({
+            sessionId: session.id,
+         });
+      } catch (error) {
+         console.error("Error making payment:", error);
+      }
    };
 
    return (
@@ -203,7 +234,10 @@ const OrderButton: React.FC = () => {
             <h2 className="my-4">Mijn bestelling:</h2>
             <CartView />
          </div>
-         <button onClick={handleClick} className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
+         {/* <button onClick={handleClick} className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
+            Plaats bestelling
+         </button> */}
+         <button onClick={makePayment} className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
             Plaats bestelling
          </button>
       </div>

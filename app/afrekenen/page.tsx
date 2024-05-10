@@ -5,7 +5,8 @@ export default function Afrekenen() {
       <>
          <div>
             <h1 className="text-3xl border-b text-center py-8 content-center">Checkout</h1>
-            <div className="py-4">
+
+            <div className="my-12">
                <Bestelling />
             </div>
          </div>
