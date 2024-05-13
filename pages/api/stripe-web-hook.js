@@ -13,7 +13,12 @@ export const config = {
 };
 const createOrder = async (orderData) => {
    try {
-      const response = await axios.post("/createOrder", orderData);
+      const response = await axios.post("https://jpcms.nl/wp-json/wc/v3/orders", orderData, {
+         auth: {
+            username: process.env.WOOCOMMERCE_KEY,
+            password: process.env.WOOCOMMERCE_SECRET,
+         },
+      });
       console.log("Order created: " + JSON.stringify(response.data));
    } catch (error) {
       console.log("Error creating order: " + error.message);
@@ -58,7 +63,7 @@ export default async function handler(req, res) {
                },
             ],
          };
-         await createOrder(testData);
+         createOrder(testData);
          return res.status(200).json({ received: true });
       } else {
          return res.status(405).json({ error: "Method Not Allowed" });
