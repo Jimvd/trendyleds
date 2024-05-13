@@ -4,8 +4,21 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
    apiVersion: "2023-10-16",
 });
 
+const relevantEvents = new Set(["checkout.session.completed"]);
+
 export default async function POST(req) {
-   const body = await req.text();
+   const body = await new Promise((resolve, reject) => {
+      let data = "";
+      req.on("data", (chunk) => {
+         data += chunk;
+      });
+      req.on("end", () => {
+         resolve(data);
+      });
+      req.on("error", (error) => {
+         reject(error);
+      });
+   });
    const sig = req.headers.get("stripe-signature");
    const webhookSecret = process.env.STRIPE_WEBHOOK_ENDPOINT_SECRET;
    let event;
