@@ -1,6 +1,7 @@
 import { buffer } from "micro";
-import { Stripe } from "stripe";
-import axios from "axios"; // Import Axios
+import { NextResponse } from "next/server";
+const { Stripe } = require("stripe");
+import axios from "axios";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
    apiVersion: "2023-10-16",
@@ -22,16 +23,18 @@ const createOrder = async (orderData) => {
    }
 };
 
-export default async function handler(req, res) {
+export default async function handler(req) {
    const buf = await buffer(req);
    const sig = req.headers["stripe-signature"];
 
    try {
-      const payload = buf.toString();
-      const stripeEvent = stripe.webhooks.constructEvent(payload, sig, webhookSecret);
+      const stripeEvent = stripe.webhooks.constructEvent(buf, sig, webhookSecret);
       console.log("Received Stripe event: " + JSON.stringify(stripeEvent));
 
       if ("checkout.session.completed" === stripeEvent.type) {
+         const session = stripeEvent.data.object;
+         console.log("Payment success: " + JSON.stringify(session));
+
          const testData = {
             payment_method: "bacs",
             payment_method_title: "Direct Bank Transfer",
@@ -62,12 +65,13 @@ export default async function handler(req, res) {
             ],
          };
          await createOrder(testData);
-         return res.status(200).json({ received: true });
+
+         return NextResponse.json({ received: true }, { status: 200 });
       } else {
-         return res.status(405).json({ error: "Method Not Allowed" });
+         return NextResponse.error("Method Not Allowed", { status: 405 });
       }
    } catch (err) {
       console.log("Webhook Error: " + err.message);
-      return res.status(400).json({ error: `Webhook Error: ${err.message}` });
+      return NextResponse.error(`Webhook Error: ${err.message}`, { status: 400 });
    }
 }
