@@ -16,11 +16,9 @@ export default async function handler(req, res) {
    const buf = await buffer(req);
    const sig = req.headers["stripe-signature"];
    try {
-      const payload = JSON.parse(buf.toString()); // Parse the payload as JSON
-      const stripeEvent = stripe.webhooks.constructEvent(payload, sig, webhookSecret);
+      const stripeEvent = stripe.webhooks.constructEvent(buf, sig, webhookSecret);
       console.log("Received Stripe event: " + JSON.stringify(stripeEvent));
 
-      // Acknowledge receipt of the event
       res.status(200).json({ received: true });
    } catch (err) {
       console.log("Webhook Error: " + err.message);
