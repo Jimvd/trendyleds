@@ -11,12 +11,14 @@ export const config = {
    },
 };
 export default async function handler(req, res) {
+   const buf = await buffer(req);
    const sig = req.headers["stripe-signature"];
 
    let stripeEvent;
 
    try {
-      stripeEvent = stripe.webhooks.constructEvent(payload, sig, webhookSecret);
+      const payloadJson = JSON.parse(buf);
+      stripeEvent = stripe.webhooks.constructEvent(payloadJson, sig, webhookSecret);
       console.log("Received Stripe event: " + JSON.stringify(stripeEvent));
    } catch (err) {
       console.log("Webhook Error: " + err.message);
