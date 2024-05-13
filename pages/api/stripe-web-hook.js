@@ -33,44 +33,41 @@ export default async function handler(req, res) {
       const stripeEvent = stripe.webhooks.constructEvent(payload, sig, webhookSecret);
       console.log("Received Stripe event: " + JSON.stringify(stripeEvent));
 
-      switch (stripeEvent.type) {
-         case "checkout.session.completed":
-            const checkoutSessionCompleted = stripeEvent.data.object;
-            console.log(checkoutSessionCompleted);
-            const testData = {
-               payment_method: "bacs",
-               payment_method_title: "Direct Bank Transfer",
-               set_paid: true,
-               billing: {
-                  first_name: "Jim",
-                  last_name: "Doe",
-                  address_1: "123 Main St",
-                  city: "Anytown",
-                  postcode: "12345",
-                  country: "US",
-                  email: "john.doe@example.com",
-                  phone: "123456789",
+      if ("checkout.session.completed" === stripeEvent.type) {
+         const testData = {
+            payment_method: "bacs",
+            payment_method_title: "Direct Bank Transfer",
+            set_paid: true,
+            billing: {
+               first_name: "Jim",
+               last_name: "Doe",
+               address_1: "123 Main St",
+               city: "Anytown",
+               postcode: "12345",
+               country: "US",
+               email: "john.doe@example.com",
+               phone: "123456789",
+            },
+            shipping: {
+               first_name: "John",
+               last_name: "Doe",
+               address_1: "123 Main St",
+               city: "Anytown",
+               postcode: "12345",
+               country: "US",
+            },
+            line_items: [
+               {
+                  product_id: 1,
+                  quantity: 2,
                },
-               shipping: {
-                  first_name: "John",
-                  last_name: "Doe",
-                  address_1: "123 Main St",
-                  city: "Anytown",
-                  postcode: "12345",
-                  country: "US",
-               },
-               line_items: [
-                  {
-                     product_id: 1,
-                     quantity: 2,
-                  },
-               ],
-            };
-            createOrder(testData);
-            return res.status(200).json({ received: true });
+            ],
+         };
+         await createOrder(testData);
 
-         default:
-            return res.status(405).json({ error: "Method Not Allowed" });
+         return res.status(200).json({ received: true });
+      } else {
+         return res.status(405).json({ error: "Method Not Allowed" });
       }
    } catch (err) {
       console.log("Webhook Error: " + err.message);
