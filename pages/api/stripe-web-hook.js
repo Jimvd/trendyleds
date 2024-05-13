@@ -1,5 +1,4 @@
 import { Stripe } from "stripe";
-import { buffer } from "micro";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
    apiVersion: "2023-10-16",
@@ -11,13 +10,12 @@ export const config = {
    },
 };
 export default async function handler(req, res) {
-   const buf = await buffer(req);
    const sig = req.headers["stripe-signature"];
 
    let stripeEvent;
 
    try {
-      stripeEvent = stripe.webhooks.constructEvent(buf, sig, webhookSecret);
+      stripeEvent = stripe.webhooks.constructEvent(sig, webhookSecret);
       console.log("Received Stripe event: " + JSON.stringify(stripeEvent));
    } catch (err) {
       console.log("Webhook Error: " + err.message);
