@@ -1,5 +1,4 @@
 import { Stripe } from "stripe";
-import axios from "axios";
 import { buffer } from "micro";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
@@ -17,9 +16,12 @@ export default async function handler(req, res) {
    const buf = await buffer(req);
    const sig = req.headers["stripe-signature"];
    try {
-      const payload = buf.toString();
+      const payload = JSON.parse(buf.toString()); // Parse the payload as JSON
       const stripeEvent = stripe.webhooks.constructEvent(payload, sig, webhookSecret);
       console.log("Received Stripe event: " + JSON.stringify(stripeEvent));
+
+      // Acknowledge receipt of the event
+      res.status(200).json({ received: true });
    } catch (err) {
       console.log("Webhook Error: " + err.message);
       return res.status(400).json({ error: `Webhook Error: ${err.message}` });
