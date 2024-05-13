@@ -1,30 +1,37 @@
-const stripe = require("stripe")(
-   "sk_test_51Of5VfJ1EDSVBNMygEcy5o2iAexX2GeTKeKNjIvQ0dv2UGibZtFxq8HrGuTcjxW3P7GSSvMt6lljkJSOhuiLNzIY00JEI0qvmv"
-);
-const express = require("express");
-const app = express();
+import { buffer } from "micro";
+import { Stripe } from "stripe";
+import axios from "axios"; // Import Axios
 
-const endpointSecret = "whsec_57cfc14853accbdfcef88d6d89bb785ebb863702523b5140a9b503d6abb72ef1";
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+   apiVersion: "2023-10-16",
+});
+const webhookSecret = process.env.STRIPE_WEBHOOK_ENDPOINT_SECRET;
 
-app.use(express.json());
+export const config = {
+   api: {
+      bodyParser: false,
+   },
+};
 
-app.post("/webhook", async (request, response) => {
-   const sig = request.headers["stripe-signature"];
+const createOrder = async (orderData) => {
+   try {
+      const response = await axios.post("/createOrder", orderData);
+      console.log("Order created: " + JSON.stringify(response.data));
+   } catch (error) {
+      console.log("Error creating order: " + error.message);
+   }
+};
 
-   let event;
+export default async function handler(req, res) {
+   const buf = await buffer(req);
+   const sig = req.headers["stripe-signature"];
 
    try {
-      event = stripe.webhooks.constructEvent(request.body, sig, endpointSecret);
-   } catch (err) {
-      response.status(400).send(`Webhook Error: ${err.message}`);
-      return;
-   }
+      const payload = buf.toString();
+      const stripeEvent = stripe.webhooks.constructEvent(payload, sig, webhookSecret);
+      console.log("Received Stripe event: " + JSON.stringify(stripeEvent));
 
-   // Handle the event
-   switch (event.type) {
-      case "payment_intent.succeeded":
-         const paymentIntentSucceeded = event.data.object;
-         // Call the function to handle payment_intent.succeeded event
+      if ("checkout.session.completed" === stripeEvent.type) {
          const testData = {
             payment_method: "bacs",
             payment_method_title: "Direct Bank Transfer",
@@ -54,26 +61,13 @@ app.post("/webhook", async (request, response) => {
                },
             ],
          };
-
-         const createOrder = async (orderData) => {
-            try {
-               const response = await axios.post("/createOrder", orderData);
-               console.log("Order created: " + JSON.stringify(response.data));
-            } catch (error) {
-               console.log("Error creating order: " + error.message);
-            }
-         };
-
          await createOrder(testData);
-
-         break;
-      // ... handle other event types
-      default:
-         console.log(`Unhandled event type ${event.type}`);
+         return res.status(200).json({ received: true });
+      } else {
+         return res.status(405).json({ error: "Method Not Allowed" });
+      }
+   } catch (err) {
+      console.log("Webhook Error: " + err.message);
+      return res.status(400).json({ error: `Webhook Error: ${err.message}` });
    }
-
-   // Return a 200 response to acknowledge receipt of the event
-   response.json({ received: true });
-});
-
-app.listen(4242, () => console.log("Running on port 4242"));
+}
