@@ -1,7 +1,6 @@
 import { buffer } from "micro";
 import { NextResponse } from "next/server";
 const { Stripe } = require("stripe");
-const express = require("express");
 import axios from "axios";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
