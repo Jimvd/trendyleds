@@ -1,57 +1,36 @@
 import { Stripe } from "stripe";
+import { buffer } from "micro";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
    apiVersion: "2023-10-16",
 });
+const webhookSecret = process.env.STRIPE_WEBHOOK_ENDPOINT_SECRET;
 
-const relevantEvents = new Set(["checkout.session.completed"]);
+export async function POST(req, res) {
+   if (req.method !== "POST") {
+      return res.status(405).json({ error: "Method Not Allowed" });
+   }
 
-export default async function POST(req) {
-   const body = await new Promise((resolve, reject) => {
-      let data = "";
-      req.on("data", (chunk) => {
-         data += chunk;
-      });
-      req.on("end", () => {
-         resolve(data);
-      });
-      req.on("error", (error) => {
-         reject(error);
-      });
-   });
-   const sig = req.headers.get("stripe-signature");
-   const webhookSecret = process.env.STRIPE_WEBHOOK_ENDPOINT_SECRET;
-   let event;
+   const sig = req.headers["stripe-signature"];
+   if (!sig) {
+      return res.status(400).json({ error: "Missing Stripe Signature" });
+   }
 
+   const buf = await buffer(req);
    try {
-      if (!sig || !webhookSecret) return new Response("Webhook secret not found.", { status: 400 });
-      event = stripe.webhooks.constructEvent(body, sig, webhookSecret);
-      console.log(`🔔  Webhook received: ${event.type}`);
-   } catch (err) {
-      console.log(`❌ Error message: ${err.message}`);
-      return new Response(`Webhook Error: ${err.message}`, { status: 400 });
-   }
+      const payload = buf.toString();
+      const stripeEvent = stripe.webhooks.constructEvent(payload, sig, webhookSecret);
+      console.log("Received Stripe event: " + JSON.stringify(stripeEvent));
 
-   if (relevantEvents.has(event.type)) {
-      try {
-         switch (event.type) {
-            case "checkout.session.completed":
-               const checkoutSession = event.data.object;
-               console.log(checkoutSession);
-               break;
-            default:
-               throw new Error("Unhandled relevant event!");
-         }
-      } catch (error) {
-         console.log(error);
-         return new Response("Webhook handler failed. View your Next.js function logs.", {
-            status: 400,
-         });
+      if (stripeEvent.type === "checkout.session.completed") {
+         // Handle completed checkout session event
+         // Here you can implement your own logic
+         return res.status(200).json({ received: true });
+      } else {
+         return res.status(200).json({ received: false });
       }
-   } else {
-      return new Response(`Unsupported event type: ${event.type}`, {
-         status: 400,
-      });
+   } catch (err) {
+      console.error("Webhook Error:", err.message);
+      return res.status(400).json({ error: `Webhook Error: ${err.message}` });
    }
-   return new Response(JSON.stringify({ received: true }));
 }
