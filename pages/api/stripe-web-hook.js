@@ -17,8 +17,7 @@ export default async function handler(req, res) {
    let stripeEvent;
 
    try {
-      const payloadJson = JSON.parse(buf);
-      stripeEvent = stripe.webhooks.constructEvent(payloadJson, sig, webhookSecret);
+      stripeEvent = stripe.webhooks.constructEvent(buf, sig, webhookSecret);
       console.log("Received Stripe event: " + JSON.stringify(stripeEvent));
    } catch (err) {
       console.log("Webhook Error: " + err.message);
