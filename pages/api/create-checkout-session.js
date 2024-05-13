@@ -25,7 +25,7 @@ export default async function handler(req, res) {
          const stripe = new Stripe(
             "sk_test_51Of5VfJ1EDSVBNMygEcy5o2iAexX2GeTKeKNjIvQ0dv2UGibZtFxq8HrGuTcjxW3P7GSSvMt6lljkJSOhuiLNzIY00JEI0qvmv",
             {
-               apiVersion: "2020-08-27",
+               apiVersion: "2023-10-16",
             }
          );
 

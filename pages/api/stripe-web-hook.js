@@ -1,9 +1,10 @@
 import { buffer } from "micro";
 import axios from "axios";
-const Stripe = require("stripe");
+import { NextResponse } from "next/server";
+const { Stripe } = require("stripe");
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-   apiVersion: "2020-08-27",
+   apiVersion: "2023-10-16",
 });
 const webhookSecret = process.env.STRIPE_WEBHOOK_ENDPOINT_SECRET;
 
@@ -15,67 +16,62 @@ export const config = {
 
 const createOrder = async (orderData) => {
    try {
-      const response = await axios.post("/api/createOrder", orderData);
-      logger("Order created: " + JSON.stringify(response.data));
+      const response = await axios.post("/createOrder", orderData);
+      console.log("Order created: " + JSON.stringify(response.data));
    } catch (error) {
-      logger("Error creating order: " + error.message);
+      console.log("Error creating order: " + error.message);
    }
 };
 
-const handler = async (req, res) => {
-   if (req.method === "POST") {
-      const buf = await buffer(req);
-      const sig = req.headers["stripe-signature"];
+export async function POST(request) {
+   const buf = await buffer(request);
+   const sig = request.headers["stripe-signature"];
 
-      try {
-         const stripeEvent = stripe.webhooks.constructEvent(buf, sig, webhookSecret);
-         logger("Received Stripe event: " + JSON.stringify(stripeEvent));
+   try {
+      const stripeEvent = stripe.webhooks.constructEvent(buf, sig, webhookSecret);
+      console.log("Received Stripe event: " + JSON.stringify(stripeEvent));
 
-         if ("checkout.session.completed" === stripeEvent.type) {
-            const session = stripeEvent.data.object;
-            logger("Payment success: " + JSON.stringify(session));
+      if ("checkout.session.completed" === stripeEvent.type) {
+         const session = stripeEvent.data.object;
+         console.log("Payment success: " + JSON.stringify(session));
 
-            const testData = {
-               payment_method: "bacs",
-               payment_method_title: "Direct Bank Transfer",
-               set_paid: true,
-               billing: {
-                  first_name: "Jim",
-                  last_name: "Doe",
-                  address_1: "123 Main St",
-                  city: "Anytown",
-                  postcode: "12345",
-                  country: "US",
-                  email: "john.doe@example.com",
-                  phone: "123456789",
+         const testData = {
+            payment_method: "bacs",
+            payment_method_title: "Direct Bank Transfer",
+            set_paid: true,
+            billing: {
+               first_name: "Jim",
+               last_name: "Doe",
+               address_1: "123 Main St",
+               city: "Anytown",
+               postcode: "12345",
+               country: "US",
+               email: "john.doe@example.com",
+               phone: "123456789",
+            },
+            shipping: {
+               first_name: "John",
+               last_name: "Doe",
+               address_1: "123 Main St",
+               city: "Anytown",
+               postcode: "12345",
+               country: "US",
+            },
+            line_items: [
+               {
+                  product_id: 1,
+                  quantity: 2,
                },
-               shipping: {
-                  first_name: "John",
-                  last_name: "Doe",
-                  address_1: "123 Main St",
-                  city: "Anytown",
-                  postcode: "12345",
-                  country: "US",
-               },
-               line_items: [
-                  {
-                     product_id: 1, // Replace with your actual product ID
-                     quantity: 2,
-                  },
-               ],
-            };
-            await createOrder(testData);
+            ],
+         };
+         await createOrder(testData);
 
-            res.json({ received: true });
-         } else {
-            res.setHeader("Allow", "POST");
-            res.status(405).end("Method Not Allowed");
-         }
-      } catch (err) {
-         logger("Webhook Error: " + err.message);
-         res.status(400).send(`Webhook Error: ${err.message}`);
+         return NextResponse.json({ received: true }, { status: 200 });
+      } else {
+         return NextResponse.error("Method Not Allowed", { status: 405 });
       }
+   } catch (err) {
+      console.log("Webhook Error: " + err.message);
+      return NextResponse.error(`Webhook Error: ${err.message}`, { status: 400 });
    }
-};
-
-export default handler;
+}
