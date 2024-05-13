@@ -23,7 +23,7 @@ const createOrder = async (orderData) => {
    }
 };
 
-export async function POST(request) {
+export default async function POST(request) {
    const buf = await buffer(request);
    const sig = request.headers["stripe-signature"];
 
