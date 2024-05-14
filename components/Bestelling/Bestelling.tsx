@@ -99,6 +99,8 @@ const OrderButton: React.FC = () => {
 
       const body = {
          products: cartItems,
+         billing: billingInfo,
+         shipping: shippingInfo,
       };
 
       const headers = {
