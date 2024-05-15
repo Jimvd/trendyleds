@@ -34,13 +34,17 @@ export default async function handler(req, res) {
       const stripeEvent = stripe.webhooks.constructEvent(payload, sig, webhookSecret);
       console.log("Received Stripe event: " + JSON.stringify(stripeEvent));
 
+      const metadata = stripeEvent.data.object.metadata;
+
+      const billingInfo = JSON.parse(metadata.billing_info);
+
       if ("checkout.session.completed" === stripeEvent.type) {
          const testData = {
             payment_method: "bacs",
             payment_method_title: "Direct Bank Transfer",
             set_paid: true,
             billing: {
-               first_name: "billingInfoObj.first_name",
+               first_name: billingInfo.first_name,
                last_name: "Doe",
                address_1: "123 Main St",
                city: "Anytown",
