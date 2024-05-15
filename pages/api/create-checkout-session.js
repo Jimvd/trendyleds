@@ -7,15 +7,15 @@ export default async function handler(req, res) {
          const { products } = req.body;
          const { billing } = req.body;
 
-         console.log(products);
+         // console.log(products);
 
          const billingInfoString = JSON.stringify(billing);
          const productDetails = JSON.stringify(
-            products.map(({ product }) => ({
+            products.map(({ product, quantity }) => ({
                id: product.id,
                name: product.name,
                price: product.price,
-               quantity: product.price,
+               quantity: quantity,
             }))
          );
 
