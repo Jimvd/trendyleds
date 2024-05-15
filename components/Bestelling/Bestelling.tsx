@@ -102,6 +102,7 @@ const OrderButton: React.FC = () => {
          billing: billingInfo,
          shipping: shippingInfo,
       };
+      // console.log("console.log", body);
 
       const headers = {
          "Content-Type": "application/json",

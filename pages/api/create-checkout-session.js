@@ -5,6 +5,8 @@ export default async function handler(req, res) {
    if (req.method === "POST") {
       try {
          const { products } = req.body;
+         const { billing } = req.body;
+         const billingInfoString = JSON.stringify(billing);
 
          const lineItems = products.map((product) => {
             const price = parseFloat(product.product.price);
@@ -33,9 +35,14 @@ export default async function handler(req, res) {
             payment_method_types: ["card"],
             line_items: lineItems,
             mode: "payment",
-            success_url: "http://localhost:3000/bedankt", // replace with your success URL
-            cancel_url: "https://localhost:3000", // replace with your cancel URL
+            success_url: "http://localhost:3000/bedankt",
+            cancel_url: "https://localhost:3000",
+            metadata: {
+               billing_info: billingInfoString,
+            },
          });
+
+         console.log("Stripe session created:", session);
 
          res.status(200).json({ id: session.id });
       } catch (error) {
