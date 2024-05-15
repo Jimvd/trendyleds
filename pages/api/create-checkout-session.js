@@ -46,8 +46,8 @@ export default async function handler(req, res) {
             payment_method_types: ["card"],
             line_items: lineItems,
             mode: "payment",
-            success_url: "http://localhost:3000/bedankt",
-            cancel_url: "https://localhost:3000",
+            success_url: "https://wp-headless-pi.vercel.app/bedankt",
+            cancel_url: "https://wp-headless-pi.vercel.app",
             metadata: {
                billing_info: billingInfoString,
                productDetails: productDetails,
