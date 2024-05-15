@@ -28,6 +28,9 @@ const createOrder = async (orderData) => {
 export default async function handler(req, res) {
    const buf = await buffer(req);
    const sig = req.headers["stripe-signature"];
+
+   const billingInfoObj = JSON.parse(metadata.billing_info);
+
    try {
       const payload = buf.toString();
       const stripeEvent = stripe.webhooks.constructEvent(payload, sig, webhookSecret);
@@ -39,7 +42,7 @@ export default async function handler(req, res) {
             payment_method_title: "Direct Bank Transfer",
             set_paid: true,
             billing: {
-               first_name: "Jim",
+               first_name: billingInfoObj.first_name,
                last_name: "Doe",
                address_1: "123 Main St",
                city: "Anytown",
