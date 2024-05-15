@@ -19,6 +19,7 @@ const createOrder = async (orderData) => {
             password: process.env.WOOCOMMERCE_SECRET,
          },
       });
+
       console.log("Order created: " + JSON.stringify(response.data));
    } catch (error) {
       console.log("Error creating order: " + error.message);
@@ -32,7 +33,6 @@ export default async function handler(req, res) {
    try {
       const payload = buf.toString();
       const stripeEvent = stripe.webhooks.constructEvent(payload, sig, webhookSecret);
-      console.log("Received Stripe event: " + JSON.stringify(stripeEvent));
 
       const metadata = stripeEvent.data.object.metadata;
 
@@ -75,7 +75,6 @@ export default async function handler(req, res) {
          return res.status(405).json({ error: "Method Not Allowed" });
       }
    } catch (err) {
-      console.log("Webhook Error: " + err.message);
       return res.status(400).json({ error: `Webhook Error: ${err.message}` });
    }
 }

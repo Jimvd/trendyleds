@@ -7,8 +7,6 @@ export default async function handler(req, res) {
          const { products } = req.body;
          const { billing } = req.body;
 
-         // console.log(products);
-
          const billingInfoString = JSON.stringify(billing);
          const productDetails = JSON.stringify(
             products.map(({ product, quantity }) => ({
@@ -53,8 +51,6 @@ export default async function handler(req, res) {
                productDetails: productDetails,
             },
          });
-
-         // console.log("Stripe session created:", session);
 
          res.status(200).json({ id: session.id });
       } catch (error) {

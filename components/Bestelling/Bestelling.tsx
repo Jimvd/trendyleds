@@ -77,21 +77,6 @@ const OrderButton: React.FC = () => {
       }
    };
 
-   const handleClick = () => {
-      const testData: OrderData = {
-         payment_method: "bacs",
-         payment_method_title: "Direct Bank Transfer",
-         set_paid: true,
-         billing: billingInfo,
-         shipping: shippingInfo,
-         line_items: cartItems.map((item) => ({
-            product_id: item.product.id,
-            quantity: item.quantity,
-         })),
-      };
-      createOrder(testData);
-   };
-
    const makePayment = async () => {
       const stripe = await loadStripe(
          "pk_test_51Of5VfJ1EDSVBNMyfCVIoVLsN8nJG2V79rnQGYM5X4TWobhQYTu3Vm3yphyf5WHHIzCkXYgvUrsFhhqJ2fUnG8Ok00q7mOkWtY"
@@ -102,7 +87,6 @@ const OrderButton: React.FC = () => {
          billing: billingInfo,
          shipping: shippingInfo,
       };
-      // console.log("console.log", body);
 
       const headers = {
          "Content-Type": "application/json",
