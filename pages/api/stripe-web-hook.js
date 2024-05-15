@@ -37,6 +37,11 @@ export default async function handler(req, res) {
       const metadata = stripeEvent.data.object.metadata;
 
       const billingInfo = JSON.parse(metadata.billing_info);
+      const productInfo = JSON.parse(metadata.productDetails);
+      const lineItems = productInfo.map((product) => ({
+         product_id: product.id,
+         quantity: product.quantity,
+      }));
 
       if ("checkout.session.completed" === stripeEvent.type) {
          const orderData = {
@@ -61,10 +66,7 @@ export default async function handler(req, res) {
                postcode: billingInfo.postcode,
                country: billingInfo.country,
             },
-            line_items: {
-               product_id: 93,
-               quantity: 2,
-            },
+            line_items: lineItems,
          };
          await createOrder(orderData);
 
