@@ -13,10 +13,6 @@ export const config = {
    },
 };
 
-const removeCartFromLocalStorage = () => {
-   localStorage.removeItem("cart");
-};
-
 const createOrder = async (orderData) => {
    try {
       const response = await axios.post("https://jpcms.nl/wp-json/wc/v3/orders", orderData, {
@@ -25,7 +21,6 @@ const createOrder = async (orderData) => {
             password: process.env.WOOCOMMERCE_SECRET,
          },
       });
-      removeCartFromLocalStorage();
 
       console.log("Order created: " + JSON.stringify(response.data));
    } catch (error) {
