@@ -7,6 +7,7 @@ export default async function handler(req, res) {
          const { products } = req.body;
          const { billing } = req.body;
          const billingInfoString = JSON.stringify(billing);
+         const productsString = JSON.stringify(products);
 
          const lineItems = products.map((product) => {
             const price = parseFloat(product.product.price);
@@ -39,6 +40,7 @@ export default async function handler(req, res) {
             cancel_url: "https://localhost:3000",
             metadata: {
                billing_info: billingInfoString,
+               products: productsString,
             },
          });
 
