@@ -45,8 +45,8 @@ export default async function handler(req, res) {
 
       if ("checkout.session.completed" === stripeEvent.type) {
          const orderData = {
-            payment_method: "bacs",
-            payment_method_title: "Direct Bank Transfer",
+            payment_method: stripeEvent.data.object.payment_method_types,
+            payment_method_title: "Stripe",
             set_paid: true,
             billing: {
                first_name: billingInfo.first_name,
