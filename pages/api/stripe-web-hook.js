@@ -6,11 +6,17 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
    apiVersion: "2023-10-16",
 });
 const webhookSecret = process.env.STRIPE_WEBHOOK_ENDPOINT_SECRET;
+
 export const config = {
    api: {
       bodyParser: false,
    },
 };
+
+const removeCartFromLocalStorage = () => {
+   localStorage.removeItem("cart");
+};
+
 const createOrder = async (orderData) => {
    try {
       const response = await axios.post("https://jpcms.nl/wp-json/wc/v3/orders", orderData, {
@@ -19,6 +25,7 @@ const createOrder = async (orderData) => {
             password: process.env.WOOCOMMERCE_SECRET,
          },
       });
+      removeCartFromLocalStorage();
 
       console.log("Order created: " + JSON.stringify(response.data));
    } catch (error) {
