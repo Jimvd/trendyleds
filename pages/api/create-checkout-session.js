@@ -7,7 +7,13 @@ export default async function handler(req, res) {
          const { products } = req.body;
          const { billing } = req.body;
          const billingInfoString = JSON.stringify(billing);
-         const productsString = JSON.stringify(products);
+         const productDetails = JSON.stringify(
+            products.map(({ product }) => ({
+               id: product.id,
+               name: product.name,
+               price: product.price,
+            }))
+         );
 
          const lineItems = products.map((product) => {
             const price = parseFloat(product.product.price);
@@ -40,11 +46,11 @@ export default async function handler(req, res) {
             cancel_url: "https://localhost:3000",
             metadata: {
                billing_info: billingInfoString,
-               products: productsString,
+               productDetails: productDetails,
             },
          });
 
-         console.log("Stripe session created:", session);
+         // console.log("Stripe session created:", session);
 
          res.status(200).json({ id: session.id });
       } catch (error) {

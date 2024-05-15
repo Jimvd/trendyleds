@@ -37,9 +37,6 @@ export default async function handler(req, res) {
       const metadata = stripeEvent.data.object.metadata;
 
       const billingInfo = JSON.parse(metadata.billing_info);
-      const productsInfo = JSON.parse(metadata.products);
-
-      console.log(productsInfo);
 
       if ("checkout.session.completed" === stripeEvent.type) {
          const orderData = {
