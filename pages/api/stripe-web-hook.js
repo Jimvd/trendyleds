@@ -38,37 +38,37 @@ export default async function handler(req, res) {
 
       const billingInfo = JSON.parse(metadata.billing_info);
 
+      const lineItems = stripeEvent.data.object.display_items.map((item) => ({
+         product_id: item.custom.name,
+         quantity: item.quantity,
+      }));
+
       if ("checkout.session.completed" === stripeEvent.type) {
-         const testData = {
+         const orderData = {
             payment_method: "bacs",
             payment_method_title: "Direct Bank Transfer",
             set_paid: true,
             billing: {
                first_name: billingInfo.first_name,
-               last_name: "Doe",
-               address_1: "123 Main St",
-               city: "Anytown",
-               postcode: "12345",
-               country: "US",
-               email: "john.doe@example.com",
-               phone: "123456789",
+               last_name: billingInfo.last_name,
+               address_1: billingInfo.address_1,
+               city: billingInfo.city,
+               postcode: billingInfo.postcode,
+               country: billingInfo.country,
+               email: billingInfo.email,
+               phone: billingInfo.phone,
             },
             shipping: {
-               first_name: "John",
-               last_name: "Doe",
-               address_1: "123 Main St",
-               city: "Anytown",
-               postcode: "12345",
-               country: "US",
+               first_name: billingInfo.first_name,
+               last_name: billingInfo.last_name,
+               address_1: billingInfo.address_1,
+               city: billingInfo.city,
+               postcode: billingInfo.postcode,
+               country: billingInfo.country,
             },
-            line_items: [
-               {
-                  product_id: 1,
-                  quantity: 2,
-               },
-            ],
+            line_items: lineItems,
          };
-         await createOrder(testData);
+         await createOrder(orderData);
 
          return res.status(200).json({ received: true });
       } else {
