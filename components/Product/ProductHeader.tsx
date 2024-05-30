@@ -35,7 +35,6 @@ export default function ProductHeader({ product }: ProductProps) {
             content={product.short_description}
             classname="my-4"
           />
-
           <VariantSelector
             attributes={product.attributes}
             variations={product.variations}
@@ -54,7 +53,7 @@ export default function ProductHeader({ product }: ProductProps) {
           </p>
           <AddToCart product={product} />
           <ProductUsp />
-          <div className="mt-4 bg-white  ">
+          <div className="mt-4 bg-white">
             {product.description && (
               <Accordion
                 title="Productbeschrijving"

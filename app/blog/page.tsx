@@ -52,7 +52,7 @@ export default async function BlogHome() {
 
       <div className="shadow-sm border-b-4 border-primary">
         <h1 className="text-4xl text-center relative py-8 text-black">BLOG</h1>
-        <p className="relative z-10 text-center text-black pb-8 text-2xl">
+        <p className="relative text-center text-black pb-8 text-2xl">
           Lees de laatste blogs!
         </p>
       </div>
