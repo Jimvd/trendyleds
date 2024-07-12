@@ -6,7 +6,7 @@ export default function HomepageBanner() {
       <div className="relative">
          <picture>
             <source media="(max-width: 767px)" srcSet="trendyledsMobile.jpg" width="430" height="413" />
-            <source media="(min-width: 768px)" srcSet="trendyledsDesktop.jpg" width="1920" height="850" />
+            <source media="(min-width: 768px)" srcSet="bannerstore.png" width="1920" height="850" />
             <img
                src="trendyledsMobile.jpg"
                alt="Trendy LEDs Banner"
