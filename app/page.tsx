@@ -29,8 +29,7 @@ export default async function Home() {
 
    return (
       <>
-         <HomepageBanner mobileImg="/banners/trendyledsmobile.jpg" desktopImg="/banners/trendyledsdesktop.jpg" />
-
+         <HomepageBanner />
          <div className="max-w-custom mx-auto grid grid-cols-1 gap-y-12 p-3 lg:p-0 lg:py-12">
             <div className="mx-auto text-center ">
                <h1 className="text-3xl font-semibold lg:text-3xl mt-12 tracking-wide">
