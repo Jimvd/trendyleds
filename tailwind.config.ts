@@ -19,7 +19,7 @@ const config: Config = {
         primary: {
           lighter: 'rgb(225 212 180 / 8%)',
           light: '#ffc8dd',
-          DEFAULT: '#e6dac4',
+          DEFAULT: '#1F2EFE',
           dark: '#e5989b',
         },
         secondary: {

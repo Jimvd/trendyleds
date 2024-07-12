@@ -1,27 +1,30 @@
 export const MENU_ITEMS = [{
     id: 1,
-    label: "Kleding", path: "/kleding",
-    subitems: [
-        { name: "Broeken", link: "/kleding/broeken" },
-        { name: "jurken", link: "/kleding/jurken" },
+    label: "Assortiment", path: "/producten",
+    // subitems: [
+    //     { name: "Led strip", link: "/" },
+    //     { name: "outdoor led", link: "/" },
+    // ],
+},
+{
+    id: 3,
+    label: "Levertijd", path: "/levertijd",
 
-    ],
-    hasChevron: true,
+},
+{
+    id: 4,
+    label: "Installatiegids", path: "/installatiegids",
+
+},
+{
+    id: 5,
+    label: "Over ons", path: "/about",
+
 },
 {
     id: 3,
     label: "Blog", path: "/blog",
-    hasChevron: false,
-},
-{
-    id: 4,
-    label: "Contact", path: "/contact",
-    hasChevron: false,
-},
-{
-    id: 5,
-    label: "About", path: "/about",
-    hasChevron: false,
+
 },
 
 ]
