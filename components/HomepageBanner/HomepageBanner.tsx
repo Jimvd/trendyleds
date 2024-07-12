@@ -5,10 +5,10 @@ export default function HomepageBanner() {
    return (
       <div className="relative">
          <picture>
-            <source media="(max-width: 767px)" srcSet="/banners/trendyledsMobile.jpg" width="430" height="413" />
-            <source media="(min-width: 768px)" srcSet="/banners/trendyledsDesktop.jpg" width="1920" height="850" />
+            <source media="(max-width: 767px)" srcSet="trendyledsMobile.jpg" width="430" height="413" />
+            <source media="(min-width: 768px)" srcSet="trendyledsDesktop.jpg" width="1920" height="850" />
             <img
-               src="/banners/trendyledsMobile.jpg"
+               src="trendyledsMobile.jpg"
                alt="Trendy LEDs Banner"
                className="aspect-video rounded-lg bg-gray-100 w-full h-[40vh] lg:h-[75vh]"
             />
