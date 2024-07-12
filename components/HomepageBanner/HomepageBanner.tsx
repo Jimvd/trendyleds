@@ -41,9 +41,9 @@ export default function HomepageBanner() {
          <div className="shadow-md lg:hidden py-8 text-center flex flex-col items-center">
             <h1 className=" font-bold text-2xl text-center">Geef jouw kamer een unieke uitstraling</h1>
             <div className="flex justify-center items-center my-6 max-w-sm">
-               <CheckBadgeIcon className="h-6 w-6" />
-               <p className="text-xs font-bold mx-1">120+ effecten</p>
-               <CheckBadgeIcon className="h-6 w-6" />
+               <CheckBadgeIcon className="h-6 w-6 mx-1" />
+               <p className="text-xs font-bold ">120+ effecten</p>
+               <CheckBadgeIcon className="h-6 w-6 mx-1" />
                <p className="text-xs font-bold">Bluetooth app</p>
                <CheckBadgeIcon className="h-6 w-6 mx-1" />
                <p className="text-xs font-bold">1000+ kleuren</p>
