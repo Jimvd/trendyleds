@@ -4,31 +4,31 @@ import RelatedProducts from "@/components/display/RelatedProducts/RelatedProduct
 import { fetchWooCommerceProductBySlug } from "@/utils/wooCommerceApi";
 
 export default async function ProductBySlug({
-  params,
+   params,
 }: {
-  params: {
-    productSlug: string;
-  };
+   params: {
+      productSlug: string;
+   };
 }) {
-  const getProductData = async () => {
-    const productSlug = params.productSlug;
-    const productBySlug = await fetchWooCommerceProductBySlug(productSlug);
+   const getProductData = async () => {
+      const productSlug = params.productSlug;
+      const productBySlug = await fetchWooCommerceProductBySlug(productSlug);
 
-    return productBySlug;
-  };
+      return productBySlug;
+   };
 
-  const product = await getProductData();
+   const product = await getProductData();
 
-  return (
-    <>
-      <div className="pt-16 bg-primary-lighter">
-        <div className="m-auto p-4 bg-white shadow-sm rounded-lg max-w-custom ">
-          <ProductHeader product={product} />
-          {product.cross_sell_ids && product.cross_sell_ids.length > 0 && (
-            <RelatedProducts relatedProducts={product.cross_sell_ids} />
-          )}
-        </div>
-      </div>
-    </>
-  );
+   return (
+      <>
+         <div className="pt-16 bg-primary-lighter">
+            <div className="m-auto p-4 bg-white shadow-sm rounded-lg max-w-custom ">
+               <ProductHeader product={product} />
+               {product.cross_sell_ids && product.cross_sell_ids.length > 0 && (
+                  <RelatedProducts relatedProducts={product.cross_sell_ids} />
+               )}
+            </div>
+         </div>
+      </>
+   );
 }
