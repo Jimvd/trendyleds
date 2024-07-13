@@ -59,3 +59,15 @@ export async function fetchWooCommerceProductsByCategorySlug(
     );
   }
 }
+
+
+export async function fetchWooCommerceProductCategoryById(categoryId: number) {
+  try {
+    const response = await api.get(`products/categories/${categoryId}`);
+
+    return response.data;
+  } catch (error) {
+    throw new Error(`Error fetching category with ID ${categoryId}: ${error}`);
+  }
+}
+

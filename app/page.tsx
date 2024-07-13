@@ -2,9 +2,9 @@ import ProductCard from "@/components/display/Card/productCard";
 import HomepageBanner from "@/components/HomepageBanner/HomepageBanner";
 import { fetchWooCommerceProducts } from "@/utils/wooCommerceApi";
 import { Product } from "@/utils/wooCommerceTypes";
-import { BanknotesIcon, ChatBubbleBottomCenterTextIcon, TruckIcon } from "@heroicons/react/24/outline";
 import { Metadata } from "next";
 import Image from "next/image";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
    title: "Trendyleds | Speciale led verlichting kopen?",
@@ -40,7 +40,7 @@ export default async function Home() {
             <div className="grid grid-cols-2 gap-4 lg:m-0 lg:grid-cols-4 ">
                {latestProducts.map((product: Product) => (
                   <div key={product.id}>
-                     <ProductCard product={product} />
+                     <ProductCard product={product} showAddToCart />
                   </div>
                ))}
             </div>
@@ -52,38 +52,18 @@ export default async function Home() {
                   Een slim, veelzijdig en kleurrijk lichtsysteem dat elke ruimte tot leven brengt
                </p>
             </div>
-            <Image
-               src={"https://www.trendyleds.nl/wp-content/uploads/2022/09/giphy-kopie-4.gif"}
-               className="aspect-video lg:max-h-96"
-               layout={"responsive"}
-               height={480}
-               width={270}
-               alt={`A cute animal!`}
-               unoptimized={true}
-            />
-            <div className="flex flex-col md:flex-row justify-around items-stretch text-center w-full p-8">
-               <div className="max-w-xs mb-8 md:mb-0 flex-grow">
-                  <BanknotesIcon className="w-16 h-16 bg-gray-100 rounded-full p-4 mb-2 mx-auto" />
-                  <p className="text-lg font-bold mb-2">100% Geld terug</p>
-                  <p>
-                     Mocht het zover komen, dan vinden we het jammer om je te zien vertrekken. En we zijn bliksemsnel
-                     met je terugbetaling.
-                  </p>
-               </div>
-               <div className="max-w-xs mb-8 md:mb-0 flex-grow">
-                  <TruckIcon className="w-16 h-16 bg-gray-100 rounded-full p-4 mb-2 mx-auto" />
-                  <p className="text-lg font-bold mb-2">Gratis verzending boven €50</p>
-                  <p>Bestel zonder zorgen. Wij dekken de verzendkosten voor bestellingen boven de €50</p>
-               </div>
-               <div className="max-w-xs flex-grow">
-                  <ChatBubbleBottomCenterTextIcon className="w-16 h-16 bg-gray-100 rounded-full p-4 mb-2 mx-auto" />
-                  <p className="text-lg font-bold mb-2">Premium support</p>
-                  <p>
-                     Onze premium support staat altijd klaar om je snel en deskundig te helpen. Ons team van experts
-                     staat altijd voor u klaar.
-                  </p>
-               </div>
-            </div>
+
+            <Suspense>
+               <Image
+                  src={"https://www.trendyleds.nl/wp-content/uploads/2022/09/giphy-kopie-4.gif"}
+                  className="aspect-video w-full lg:max-h-96"
+                  height={480}
+                  width={270}
+                  alt={`trendy leds slimme led verlichting`}
+                  unoptimized={true}
+                  loading="lazy"
+               />
+            </Suspense>
          </div>
       </>
    );

@@ -1,6 +1,6 @@
 export const MENU_ITEMS = [{
     id: 1,
-    label: "Assortiment", path: "/producten",
+    label: "Assortiment", path: "/led-verlichting",
     // subitems: [
     //     { name: "Led strip", link: "/" },
     //     { name: "outdoor led", link: "/" },
