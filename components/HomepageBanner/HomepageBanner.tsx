@@ -49,7 +49,7 @@ export default function HomepageBanner() {
                <p className="text-xs font-bold">1000+ kleuren</p>
             </div>
             <Link
-               href="/"
+               href="/trendyleds-slimme-ledstrip"
                className="bg-black text-white font-bold h-12 w-64 rounded-full flex items-center justify-center "
             >
                Maak mijn kamer uniek
