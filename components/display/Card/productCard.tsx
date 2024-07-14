@@ -47,16 +47,15 @@ const ProductCard = (props: Props) => {
                   )}
                </div>
             </div>
+
+            {showAddToCart && (
+               <div className="mt-auto mx-4 my-4">
+                  <p className="w-full text-center hover:bg-primary hover:font-bold hover:text-white border border-primary text-primary py-2 rounded-full mt-2">
+                     Bestel direct
+                  </p>
+               </div>
+            )}
          </Link>
-         {showAddToCart && (
-            <div className="mt-auto mx-4 my-4">
-               <AddToCart
-                  product={product}
-                  className="w-full text-center hover:bg-primary hover:font-bold hover:text-white border border-primary text-primary py-2 rounded-full mt-2"
-                  text="Bestel Direct"
-               />
-            </div>
-         )}
       </div>
    );
 };

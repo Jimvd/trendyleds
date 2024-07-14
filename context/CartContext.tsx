@@ -4,7 +4,7 @@ import { createContext, useContext, useState, useEffect, useCallback } from "rea
 
 interface CartContextValue {
    cartItems: CartItem[];
-   addToCart: (product: Product) => void;
+   addToCart: (product: Product & { quantity: number }) => void;
    removeFromCart: (productId: number) => void;
    updateCartItemQuantity: (productId: number, quantity: number) => void;
    cartTotal: number;
@@ -46,21 +46,21 @@ export const CartProvider = ({ children }: Props) => {
       }
    };
 
-   const addToCart = (product: Product) => {
+   const addToCart = (product: Product & { quantity: number }) => {
       const existingCartItemIndex = cartItems.findIndex((item) => item.product.id === product.id);
       if (existingCartItemIndex !== -1) {
          const existingCartItem = cartItems[existingCartItemIndex];
          const updatedCartItem = {
             ...existingCartItem,
-            quantity: existingCartItem.quantity + 1,
+            quantity: existingCartItem.quantity + product.quantity,
          };
          const updatedCartItems = [...cartItems];
          updatedCartItems[existingCartItemIndex] = updatedCartItem;
          setCartItems(updatedCartItems);
          saveToLocalStorage(updatedCartItems);
       } else {
-         setCartItems([...cartItems, { product, quantity: 1 }]);
-         saveToLocalStorage([...cartItems, { product, quantity: 1 }]);
+         setCartItems([...cartItems, { product, quantity: product.quantity }]);
+         saveToLocalStorage([...cartItems, { product, quantity: product.quantity }]);
       }
    };
 
