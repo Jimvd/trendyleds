@@ -5,7 +5,6 @@ import { Product } from "@/utils/wooCommerceTypes";
 import bannerMobile from "../../../public/mobielvoorbeeld.webp";
 import bannerDesktop from "../../../public/collectievoorbeeld.webp";
 import { StaticImageData } from "next/image";
-import { Metadata } from "next";
 
 interface BannerMap {
    [key: string]: {
