@@ -4,15 +4,24 @@ import { Product } from "@/utils/wooCommerceTypes";
 
 interface Props {
    product: Product;
+   selectedAttributes?: Record<string, string>;
+   quantity: number;
    className: string;
    text: string;
 }
 
-export default function AddToCart({ product, className, text }: Props) {
+export default function AddToCart({ product, selectedAttributes, quantity, className, text }: Props) {
    const { addToCart } = useCart();
 
    const handleAddToCartClick = (product: Product) => {
-      addToCart(product);
+      const productWithAttributes = {
+         ...product,
+         selectedAttributes,
+         quantity,
+      };
+      addToCart(productWithAttributes);
+
+      console.log("productWithAttributes", productWithAttributes);
    };
 
    return (

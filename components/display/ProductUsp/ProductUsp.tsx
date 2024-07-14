@@ -1,7 +1,7 @@
 const ProductUsp = () => {
    return (
       <>
-         <div className="text-sm w-full max-w-sm  rounded-sm bg-white p-4">
+         <div className="text-sm w-full max-w-sm  rounded-sm bg-white my-4">
             <div className="flex mb-2 items-center">
                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 88.668 79.598" id="ideal">
                   <path fill="none" d="M0 0h88.668v79.598H0z"></path>

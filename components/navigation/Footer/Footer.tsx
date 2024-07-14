@@ -6,7 +6,7 @@ export default function Footer() {
    const support = ["Installatiegids", "Contact", "Algemene voorwaarden", "Privacy Policy"];
    return (
       <>
-         <div className="flex flex-col md:flex-row justify-around items-stretch text-center w-full p-8">
+         <div className="flex flex-col md:flex-row justify-around items-stretch text-center border-t w-full p-8">
             <div className="max-w-xs mb-8 md:mb-0 flex-grow">
                <BanknotesIcon className="w-16 h-16 bg-gray-100 rounded-full p-4 mb-2 mx-auto" />
                <p className="text-lg font-bold mb-2">100% Geld terug</p>
