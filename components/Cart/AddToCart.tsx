@@ -8,12 +8,15 @@ interface Props {
    quantity: number;
    className: string;
    text: string;
+   disabled?: boolean;
 }
 
-export default function AddToCart({ product, selectedAttributes, quantity, className, text }: Props) {
+export default function AddToCart({ product, selectedAttributes, quantity, className, text, disabled }: Props) {
    const { addToCart } = useCart();
 
    const handleAddToCartClick = (product: Product) => {
+      if (disabled) return;
+
       const productWithAttributes = {
          ...product,
          selectedAttributes,
@@ -30,6 +33,7 @@ export default function AddToCart({ product, selectedAttributes, quantity, class
          title="Add Item to Cart"
          className={className}
          onClick={() => handleAddToCartClick(product)}
+         disabled={disabled}
       >
          <span>{text}</span>
       </button>

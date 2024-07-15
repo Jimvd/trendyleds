@@ -28,6 +28,8 @@ export default function ProductHeader({ product }: ProductProps) {
       }
    };
 
+   const isOutOfStock = product.stock_status === "outofstock";
+
    return (
       <>
          <div className="p-4 grid grid-cols-1 gap-x-6 lg:grid-cols-2">
@@ -54,11 +56,21 @@ export default function ProductHeader({ product }: ProductProps) {
                      Aantal
                   </label>
                   <div className="flex justify-center border rounded-md items-center">
-                     <button type="button" onClick={() => handleQuantityChange(quantity - 1)} className="p-1 border-r">
+                     <button
+                        type="button"
+                        onClick={() => handleQuantityChange(quantity - 1)}
+                        className="p-1 border-r"
+                        disabled={isOutOfStock}
+                     >
                         <MinusIcon className="h-6 w-6" />
                      </button>
                      <p className="mx-6 ">{quantity}</p>
-                     <button type="button" onClick={() => handleQuantityChange(quantity + 1)} className="p-1 border-l">
+                     <button
+                        type="button"
+                        onClick={() => handleQuantityChange(quantity + 1)}
+                        className="p-1 border-l"
+                        disabled={isOutOfStock}
+                     >
                         <PlusIcon className="h-6 w-6" />
                      </button>
                   </div>
@@ -67,8 +79,11 @@ export default function ProductHeader({ product }: ProductProps) {
                   product={product}
                   selectedAttributes={selectedAttributes}
                   quantity={quantity}
-                  className="w-full max-w-md my-6 py-2 font-bold px-8 rounded-lg hover:bg-black bg-primary text-white"
-                  text="In winkelwagen"
+                  className={`w-full max-w-md my-6 py-2 font-bold px-8 rounded-lg ${
+                     isOutOfStock ? "bg-gray-400 cursor-not-allowed" : "bg-primary text-white hover:bg-black "
+                  }`}
+                  text={isOutOfStock ? "Uitverkocht" : "In winkelwagen"}
+                  disabled={isOutOfStock}
                />
                <ProductUsp />
                <div className="mt-6 bg-white max-w-md">
