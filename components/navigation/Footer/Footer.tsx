@@ -35,7 +35,7 @@ export default function Footer() {
                   <h2 className="text-xl mb-2 font-bold">TrendyLeds</h2>
 
                   <p className="text-sm md:text-base">
-                     Trendyleds.nl is een nederlands bedrijf opgericht in 2020. Wij van trendyleds streven naar een
+                     Trendyleds.nl is een nederlands bedrijf opgericht in 2021. Wij van trendyleds streven naar een
                      goede service.
                   </p>
                </div>

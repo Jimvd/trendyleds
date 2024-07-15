@@ -18,7 +18,7 @@ export const MENU_ITEMS = [{
 },
 {
     id: 5,
-    label: "Over ons", path: "/about",
+    label: "Over ons", path: "/over-ons",
 
 },
 {

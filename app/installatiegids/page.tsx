@@ -1,4 +1,22 @@
+import { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+   title: "Installatiegids | trendy leds led verlichting",
+   description:
+      "Ontdek met onze installatiegids hoe je eenvoudig en snel een trendy leds led strip installeert. Creëer de perfecte sfeer in jouw kamer met onze handige tips!",
+   alternates: {
+      canonical: "https://www.trendyleds.nl/installatiegids/",
+   },
+   robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+         index: true,
+         follow: true,
+      },
+   },
+};
 
 export default function installatiegids() {
    return (
