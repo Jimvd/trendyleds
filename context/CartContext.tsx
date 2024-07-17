@@ -10,6 +10,8 @@ interface CartContextValue {
    cartTotal: number;
    cartCount: number;
    clearCart: () => void;
+   shippingCost: number;
+   isFreeShipping: boolean; // Nieuw veld voor gratis verzending
 }
 
 export const CartContext = createContext<CartContextValue>({
@@ -20,6 +22,8 @@ export const CartContext = createContext<CartContextValue>({
    cartTotal: 0,
    cartCount: 0,
    clearCart: () => {},
+   shippingCost: 2.95, // Standaard verzendkosten
+   isFreeShipping: false, // Standaard geen gratis verzending
 });
 
 export const useCart = () => {
@@ -40,7 +44,6 @@ export const CartProvider = ({ children }: Props) => {
    }, []);
 
    const saveToLocalStorage = (items: CartItem[]) => {
-      // Check if window is defined to avoid server-side rendering issues
       if (typeof window !== "undefined") {
          localStorage.setItem("cartItems", JSON.stringify(items));
       }
@@ -90,10 +93,16 @@ export const CartProvider = ({ children }: Props) => {
       saveToLocalStorage([]);
    }, []);
 
-   const cartTotal = cartItems.reduce(
+   const shippingCost = 2.95;
+
+   const cartTotalWithoutShipping = cartItems.reduce(
       (total, item) => total + (item.product.price as unknown as number) * (item.quantity as number),
       0
    );
+
+   const isFreeShipping = cartTotalWithoutShipping >= 5000 / 100;
+
+   const cartTotal = isFreeShipping ? cartTotalWithoutShipping : cartTotalWithoutShipping + shippingCost;
 
    const cartCount = cartItems.reduce((count, item) => count + item.quantity, 0);
 
@@ -107,6 +116,8 @@ export const CartProvider = ({ children }: Props) => {
             cartTotal,
             cartCount,
             clearCart,
+            shippingCost,
+            isFreeShipping,
          }}
       >
          {children}

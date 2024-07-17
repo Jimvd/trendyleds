@@ -1,11 +1,30 @@
-// API code;
 import Stripe from "stripe";
+
+const stripe = new Stripe(
+   "sk_test_51Of5VfJ1EDSVBNMygEcy5o2iAexX2GeTKeKNjIvQ0dv2UGibZtFxq8HrGuTcjxW3P7GSSvMt6lljkJSOhuiLNzIY00JEI0qvmv",
+   {
+      apiVersion: "2023-10-16",
+   }
+);
+
+async function createShippingRate(displayName, amount) {
+   try {
+      const shippingRate = await stripe.shippingRates.create({
+         display_name: displayName,
+         type: "fixed_amount",
+         fixed_amount: { amount: amount, currency: "eur" },
+      });
+      return shippingRate.id;
+   } catch (error) {
+      console.error("Error creating shipping rate:", error);
+      throw error;
+   }
+}
 
 export default async function handler(req, res) {
    if (req.method === "POST") {
       try {
-         const { products } = req.body;
-         const { billing } = req.body;
+         const { products, billing } = req.body;
 
          const billingInfoString = JSON.stringify(billing);
          const productDetails = JSON.stringify(
@@ -33,12 +52,19 @@ export default async function handler(req, res) {
             };
          });
 
-         const stripe = new Stripe(
-            "sk_test_51Of5VfJ1EDSVBNMygEcy5o2iAexX2GeTKeKNjIvQ0dv2UGibZtFxq8HrGuTcjxW3P7GSSvMt6lljkJSOhuiLNzIY00JEI0qvmv",
-            {
-               apiVersion: "2023-10-16",
-            }
+         // Calculate cart total
+         const cartTotalWithoutShipping = products.reduce(
+            (total, product) => total + parseFloat(product.product.price) * product.quantity,
+            0
          );
+
+         const cartTotalInCents = Math.round(cartTotalWithoutShipping * 100);
+
+         // Determine which shipping rate to use
+         const shippingRateId =
+            cartTotalWithoutShipping >= 50
+               ? await createShippingRate("Free Shipping", 0)
+               : await createShippingRate("Standard Shipping", 295);
 
          const session = await stripe.checkout.sessions.create({
             payment_method_types: ["card"],
@@ -50,6 +76,11 @@ export default async function handler(req, res) {
                billing_info: billingInfoString,
                productDetails: productDetails,
             },
+            shipping_options: [
+               {
+                  shipping_rate: shippingRateId,
+               },
+            ],
          });
 
          res.status(200).json({ id: session.id });
