@@ -52,10 +52,7 @@ export const ProductCheckout = () => {
                      <p>Totaalbedrag</p>
                      <p>€{cartTotal.toFixed(2)}</p>
                   </div>
-                  <Link
-                     href="/checkout/afrekenen"
-                     className="block w-full bg-primary text-white text-center py-2 rounded-full"
-                  >
+                  <Link href="/afrekenen" className="block w-full bg-primary text-white text-center py-2 rounded-full">
                      Ik ga bestellen
                   </Link>
                </div>

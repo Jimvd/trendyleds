@@ -1,9 +1,17 @@
+"use client";
 import { BanknotesIcon, ChatBubbleBottomCenterTextIcon, TruckIcon } from "@heroicons/react/24/outline";
+import { usePathname } from "next/navigation";
 
 export default function Footer() {
    const ontdek = ["Producten", "Over ons"];
    const meerWeten = ["Levertijd", "FAQ"];
    const support = ["Installatiegids", "Contact", "Algemene voorwaarden", "Privacy Policy"];
+
+   const pathName = usePathname();
+
+   if (pathName?.includes("afrekenen")) {
+      return null;
+   }
    return (
       <>
          <div className="flex flex-col md:flex-row justify-around items-stretch text-center border-t w-full p-8">
