@@ -8,10 +8,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
    return (
       <html lang="en">
          <body>
-            <div className=" bg-primary text-white py-2 text-center">
-               <span className="text-white font-bold lg:text-md text-sm">Gratis verzending boven de €50,- 🚚</span>
-            </div>
-
             <CartProvider>
                <SiteHeader />
                <NextBreadcrumb

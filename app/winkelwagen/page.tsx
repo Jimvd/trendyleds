@@ -1,23 +1,4 @@
 import { ProductCheckout } from "@/components/Cart/ProductCheckout";
-import { CheckBadgeIcon, CheckIcon } from "@heroicons/react/24/outline";
-import { Metadata } from "next";
-
-export const metadata: Metadata = {
-   title: "Levertijd | trendy leds led verlichting",
-   description:
-      "Benieuwd naar de levertijd van je led strip? Wij streven ernaar om je product de volgende dag te bezorgen. Bestel vandaag en geniet morgen al van je nieuwe verlichting!",
-   alternates: {
-      canonical: "https://www.trendyleds.nl/levertijd/",
-   },
-   robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-         index: true,
-         follow: true,
-      },
-   },
-};
 
 export default function winkelwagen() {
    return (

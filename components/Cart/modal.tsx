@@ -8,7 +8,10 @@ import { useCart } from "@/context/CartContext";
 
 export default function CartModal() {
    const [openCart, setOpenCart] = useState(false);
-   const { cartTotal } = useCart();
+   const { cartTotal, isFreeShipping, shippingCost, cartItems } = useCart(); // Assuming you have cartItems in your context
+
+   const isEmptyCart = cartItems.length === 0;
+
    return (
       <>
          <button aria-label="Open cart" onClick={() => setOpenCart(true)}>
@@ -65,33 +68,49 @@ export default function CartModal() {
                                           </ul>
                                        </div>
                                     </div>
-                                 </div>{" "}
-                                 <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
-                                    <div className="flex justify-between text-base font-medium text-gray-900">
-                                       <p>Totaal</p>
-                                       <p>€{cartTotal.toFixed(2)}</p>
-                                    </div>
-                                    <p className="mt-0.5 text-sm text-gray-500">Vandaag besteld morgen in huis</p>
-                                    <div className="mt-6">
-                                       <a
-                                          href="/winkelwagen"
-                                          className="flex items-center justify-center rounded-md border border-transparent bg-primary px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-[#d6c8af]"
-                                       >
-                                          Bestellen
-                                       </a>
-                                    </div>
-                                    <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
-                                       <p>
-                                          <button
-                                             type="button"
-                                             className="font-medium text-black hover:text-sky-700 px-2"
-                                             onClick={() => setOpenCart(false)}
-                                          >
-                                             Verder winkelen <span aria-hidden="true"> &rarr;</span>
-                                          </button>
-                                       </p>
-                                    </div>
                                  </div>
+                                 {!isEmptyCart && ( // Render only if cart is not empty
+                                    <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
+                                       <div className=" justify-between text-base font-medium text-gray-900">
+                                          <div className="flex justify-between text-base font-medium text-gray-900 py-4">
+                                             <p>Bezorgkosten</p>
+                                             {isFreeShipping ? (
+                                                <div className="flex items-center ">
+                                                   <p className="pl-2 text-green-500">Gratis</p>
+                                                </div>
+                                             ) : (
+                                                <div className="flex items-center">
+                                                   <p className="pl-2">€{shippingCost.toFixed(2)}</p>
+                                                </div>
+                                             )}
+                                          </div>
+                                          <div className="flex justify-between text-base font-medium text-gray-900 py-4">
+                                             <p>Totaalbedrag</p>
+                                             <p>€{cartTotal.toFixed(2)}</p>
+                                          </div>
+                                       </div>
+                                       <p className="mt-0.5 text-sm text-gray-500">Vandaag besteld morgen in huis</p>
+                                       <div className="mt-6">
+                                          <a
+                                             href="/winkelwagen"
+                                             className="flex items-center justify-center rounded-md border border-transparent bg-primary px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-[#d6c8af]"
+                                          >
+                                             Bestellen
+                                          </a>
+                                       </div>
+                                       <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
+                                          <p>
+                                             <button
+                                                type="button"
+                                                className="font-medium text-black hover:text-sky-700 px-2"
+                                                onClick={() => setOpenCart(false)}
+                                             >
+                                                Verder winkelen <span aria-hidden="true"> &rarr;</span>
+                                             </button>
+                                          </p>
+                                       </div>
+                                    </div>
+                                 )}
                               </div>
                            </Dialog.Panel>
                         </Transition.Child>
