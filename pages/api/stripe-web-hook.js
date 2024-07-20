@@ -43,6 +43,12 @@ export default async function handler(req, res) {
       const lineItems = productInfo.map((product) => ({
          product_id: product.id,
          quantity: product.quantity,
+         meta_data: [
+            {
+               key: "maat",
+               value: product.maat,
+            },
+         ],
       }));
 
       if ("checkout.session.completed" === stripeEvent.type) {
