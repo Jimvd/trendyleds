@@ -75,6 +75,10 @@ export default async function handler(req, res) {
                country: billingInfo.country,
             },
             line_items: lineItems,
+            meta_data: {
+               key: "custom_order_note",
+               value: metadata.custom_order_note,
+            },
          };
          await createOrder(orderData);
 
