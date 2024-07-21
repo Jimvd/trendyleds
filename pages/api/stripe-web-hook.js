@@ -46,7 +46,7 @@ export default async function handler(req, res) {
          meta_data: [
             {
                key: "maat",
-               value: product.maat,
+               value: " lineitems",
             },
          ],
       }));
@@ -75,10 +75,6 @@ export default async function handler(req, res) {
                country: billingInfo.country,
             },
             line_items: lineItems,
-            meta_data: {
-               key: "custom_order_note",
-               value: metadata.custom_order_note,
-            },
          };
          await createOrder(orderData);
 
