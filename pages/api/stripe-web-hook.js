@@ -43,15 +43,12 @@ export default async function handler(req, res) {
       const lineItems = productInfo.map((product) => ({
          product_id: product.id,
          quantity: product.quantity,
-         // Use attributes instead of meta_data
-         product_data: {
-            attributes: [
-               {
-                  name: "Maat", // Ensure this matches the attribute name in WooCommerce
-                  option: product.maat,
-               },
-            ],
-         },
+         meta_data: [
+            {
+               key: "maat",
+               value: product.maat,
+            },
+         ],
       }));
 
       if ("checkout.session.completed" === stripeEvent.type) {

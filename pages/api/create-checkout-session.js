@@ -47,7 +47,7 @@ export default async function handler(req, res) {
                   product_data: {
                      name: product.product.name,
                      metadata: {
-                        maat: product.product.selectedAttributes.maat, // Voeg maat toe aan metadata
+                        maat: product.product.selectedAttributes.maat,
                      },
                   },
                   unit_amount: unitAmount,
