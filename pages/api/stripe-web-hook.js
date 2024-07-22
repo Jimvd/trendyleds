@@ -46,7 +46,7 @@ export default async function handler(req, res) {
          meta_data: [
             {
                key: "maat",
-               value: " lineitems",
+               value: product.maat,
             },
          ],
       }));
