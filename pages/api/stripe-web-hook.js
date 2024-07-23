@@ -40,6 +40,7 @@ export default async function handler(req, res) {
 
       const billingInfo = JSON.parse(metadata.billing_info);
       const productInfo = JSON.parse(metadata.productDetails);
+
       const lineItems = productInfo.map((product) => ({
          product_id: product.id,
          quantity: product.quantity,
@@ -51,7 +52,9 @@ export default async function handler(req, res) {
          ],
       }));
 
-      if ("checkout.session.completed" === stripeEvent.type) {
+      const jsonString = JSON.stringify(lineItems, null, 2);
+
+      if (stripeEvent.type === "checkout.session.completed") {
          const orderData = {
             payment_method: "stripe",
             payment_method_title: "Stripe",
@@ -74,18 +77,7 @@ export default async function handler(req, res) {
                postcode: billingInfo.postcode,
                country: billingInfo.country,
             },
-            line_items: [
-               {
-                  product_id: 30,
-                  quantity: 1,
-                  meta_data: [
-                     {
-                        key: "maat",
-                        value: "5m",
-                     },
-                  ],
-               },
-            ],
+            line_items: jsonString,
          };
 
          await createOrder(orderData);
