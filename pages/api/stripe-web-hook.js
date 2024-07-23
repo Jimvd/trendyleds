@@ -52,34 +52,43 @@ export default async function handler(req, res) {
          ],
       }));
 
-      const jsonString = JSON.stringify(lineItems, null, 2);
-
       if (stripeEvent.type === "checkout.session.completed") {
          const orderData = {
-            payment_method: "stripe",
-            payment_method_title: "Stripe",
+            payment_method: "bacs",
+            payment_method_title: "Direct Bank Transfer",
             set_paid: true,
             billing: {
-               first_name: billingInfo.first_name,
-               last_name: billingInfo.last_name,
-               address_1: billingInfo.address_1,
-               city: billingInfo.city,
-               postcode: billingInfo.postcode,
-               country: billingInfo.country,
-               email: billingInfo.email,
-               phone: billingInfo.phone,
+               first_name: "John",
+               last_name: "Doe",
+               address_1: "123 Main St",
+               city: "Anytown",
+               postcode: "12345",
+               country: "US",
+               email: "john.doe@example.com",
+               phone: "123456789",
             },
             shipping: {
-               first_name: billingInfo.first_name,
-               last_name: billingInfo.last_name,
-               address_1: billingInfo.address_1,
-               city: billingInfo.city,
-               postcode: billingInfo.postcode,
-               country: billingInfo.country,
+               first_name: "John",
+               last_name: "Doe",
+               address_1: "123 Main St",
+               city: "Anytown",
+               postcode: "12345",
+               country: "US",
             },
-            line_items: jsonString,
-         };
 
+            line_items: [
+               {
+                  product_id: 30,
+                  quantity: 2,
+                  meta_data: [
+                     {
+                        key: "maat",
+                        value: " m",
+                     },
+                  ],
+               },
+            ],
+         };
          await createOrder(orderData);
 
          return res.status(200).json({ received: true });
