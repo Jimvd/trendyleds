@@ -74,8 +74,20 @@ export default async function handler(req, res) {
                postcode: billingInfo.postcode,
                country: billingInfo.country,
             },
-            line_items: lineItems,
+            line_items: [
+               {
+                  product_id: 30,
+                  quantity: 1,
+                  meta_data: [
+                     {
+                        key: "maat",
+                        value: "5m",
+                     },
+                  ],
+               },
+            ],
          };
+
          await createOrder(orderData);
 
          return res.status(200).json({ received: true });
