@@ -33,6 +33,7 @@ export default async function handler(req, res) {
                name: product.name,
                price: product.price,
                quantity: quantity,
+               maat: product.selectedAttributes.maat,
             }))
          );
 
@@ -45,6 +46,9 @@ export default async function handler(req, res) {
                   currency: "eur",
                   product_data: {
                      name: product.product.name,
+                     metadata: {
+                        maat: product.product.selectedAttributes.maat,
+                     },
                   },
                   unit_amount: unitAmount,
                },

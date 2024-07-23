@@ -1,4 +1,5 @@
 export interface Product {
+    selectedAttributes: any;
     map(arg0: (product: Product) => import("react").JSX.Element): import("react").ReactNode;
     id: number;
     name: string;
