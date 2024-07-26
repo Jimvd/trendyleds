@@ -104,6 +104,8 @@ const OrderButton: React.FC = () => {
          "Content-Type": "application/json",
       };
 
+      clearCart();
+
       try {
          const response = await fetch(`api/create-checkout-session`, {
             method: "post",

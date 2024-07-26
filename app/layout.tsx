@@ -6,7 +6,10 @@ import Footer from "@/components/navigation/Footer/Footer";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
    return (
-      <html lang="en">
+      <html lang="nl">
+         <head>
+            <link rel="icon" href="/faveicontrendyleds.svg" />
+         </head>
          <body>
             <CartProvider>
                <SiteHeader />

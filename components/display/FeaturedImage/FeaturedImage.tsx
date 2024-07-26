@@ -22,7 +22,7 @@ export default function FeaturedImage({ post }: { post: FeaturedImageProps }) {
             width={defaultWidth}
             height={defaultHeight}
             alt={post.title}
-            className="h-full object-cover rounded-xl"
+            className="h-full object-cover rounded-t-xl lg:rounded-l-xl"
          />
       </Link>
    );
