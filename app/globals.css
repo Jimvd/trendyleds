@@ -31,3 +31,11 @@ body {
       --background-end-rgb: 0, 0, 0;
    }
 }
+
+.post-content h2 {
+   @apply text-2xl font-semibold text-black mt-6 mb-4;
+}
+
+.post-content p {
+   @apply text-base text-gray-500 my-4;
+}
