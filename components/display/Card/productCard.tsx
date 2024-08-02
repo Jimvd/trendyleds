@@ -31,9 +31,9 @@ const ProductCard = (props: Props) => {
 
             <div className="flex-grow flex flex-col py-3 px-4">
                <div className="flex-1">
-                  <p className="text-lg font-bold h-12 overflow-hidden line-clamp-2">{product.name}</p>
+                  <p className="lg:text-lg text-md font-bold h-12  overflow-hidden line-clamp-2 mb-4">{product.name}</p>
                </div>
-               <div className="my-4">
+               <div className="">
                   {product.sale_price ? (
                      <>
                         <span className="text-lg ">€{product.sale_price}</span>
