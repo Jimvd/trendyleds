@@ -24,7 +24,6 @@ export default function AddToCart({ product, selectedAttributes, quantity, class
       };
       addToCart(productWithAttributes);
 
-      console.log("productWithAttributes", productWithAttributes);
    };
 
    return (

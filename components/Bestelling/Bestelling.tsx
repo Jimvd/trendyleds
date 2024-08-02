@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import axios from "axios";
 import { useCart } from "@/context/CartContext";
 import { useRouter } from "next/navigation";
 import { loadStripe } from "@stripe/stripe-js";
@@ -86,13 +85,17 @@ const OrderButton: React.FC = () => {
 
    const makePayment = async () => {
       if (!validateInputs()) {
-         console.log("Niet alle verplichte velden zijn ingevuld");
+       
          return;
       }
 
-      const stripe = await loadStripe(
-         "pk_test_51Of5VfJ1EDSVBNMyfCVIoVLsN8nJG2V79rnQGYM5X4TWobhQYTu3Vm3yphyf5WHHIzCkXYgvUrsFhhqJ2fUnG8Ok00q7mOkWtY"
-      );
+      const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
+
+      if (!publishableKey) {
+         throw new Error("Stripe publishable key is not defined in environment variables.");
+      }
+
+      const stripe = await loadStripe(publishableKey);
 
       const body = {
          products: cartItems,

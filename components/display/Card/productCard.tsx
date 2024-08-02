@@ -15,13 +15,12 @@ const ProductCard = (props: Props) => {
    return (
       <div className="max-w-custom rounded-md shadow-md flex flex-col h-full">
          <Link href={`/${product.slug}`} className="flex-shrink-0">
-            <div className="relative group aspect-square">
+            <div className="relative group aspect-square ">
                {product.images && product.images.length > 0 ? (
                   <Image
                      src={product.images[0].src}
                      alt={product.images[0].alt}
-                     objectFit="cover"
-                     className="rounded-t-md"
+                     className="rounded-t-md object-cover"
                      height={1000}
                      width={1000}
                   />

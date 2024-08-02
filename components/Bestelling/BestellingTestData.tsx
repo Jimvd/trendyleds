@@ -34,7 +34,7 @@ interface OrderData {
 const createOrder = async (orderData: OrderData) => {
    try {
       const response = await axios.post("/api/createOrder", orderData);
-      console.log("Order created:", response.data);
+   
    } catch (error) {
       console.error("Error creating order:", error);
    }

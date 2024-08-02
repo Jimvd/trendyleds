@@ -2,7 +2,6 @@ import { query } from "@/lib/graphql/lib/query";
 import { GET_CONTENT } from "@/lib/graphql/singlepost";
 import { notFound } from "next/navigation";
 import Image from "next/image";
-import { Metadata } from "next";
 
 const getSinglePost = async (slug: string) => {
    const { data } = await query({
@@ -21,8 +20,6 @@ const getSinglePost = async (slug: string) => {
 
 export async function generateMetadata({ params }: { params: { PostSlug: string } }) {
    const post = await getSinglePost(params.PostSlug);
-
-   console.log(post);
 
    return {
       title: ` ${post.title}`,
@@ -51,14 +48,15 @@ export default async function singlePost({ params }: { params: { PostSlug: strin
          <article className="mt-4 flex w-full flex-col-reverse justify-center lg:my-10 lg:flex-row">
             <div className="px-3 lg:mr-4 lg:max-w-2/3">
                <h1 className="my-4 text-xl max-w-3xl font-semibold lg:my-0 lg:text-4xl">{post.title}</h1>
-               {post.featuredImage?.node?.mediaDetails?.sizes && (
+               {post.featuredImage?.node?.mediaDetails?.sizes?.sourceUrl && (
                   <Image
-                     src={post.featuredImage.node.mediaDetails.sizes.sourceUrl}
-                     alt={post.featuredImage.node.mediaDetails.meta.caption}
+                     src={post.featuredImage.node.mediaDetails.sizes.sourceUrl || ""}
+                     alt={post.featuredImage.node.mediaDetails.meta.caption || "Default alt text"}
                      width={post.featuredImage.node.mediaDetails.sizes.width}
                      height={post.featuredImage.node.mediaDetails.sizes.height}
                   />
                )}
+
                <div className="mb-10 mt-8 text-sm leading-6 max-w-3xl text-secondary/80 lg:text-base post-content">
                   <div
                      dangerouslySetInnerHTML={{
