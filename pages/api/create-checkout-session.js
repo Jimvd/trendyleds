@@ -1,11 +1,8 @@
 import Stripe from "stripe";
 
-const stripe = new Stripe(
-   "sk_test_51Of5VfJ1EDSVBNMygEcy5o2iAexX2GeTKeKNjIvQ0dv2UGibZtFxq8HrGuTcjxW3P7GSSvMt6lljkJSOhuiLNzIY00JEI0qvmv",
-   {
-      apiVersion: "2023-10-16",
-   }
-);
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+   apiVersion: "2023-10-16",
+});
 
 async function createShippingRate(displayName, amount) {
    try {
@@ -71,7 +68,6 @@ export default async function handler(req, res) {
                : await createShippingRate("Standard Shipping", 295);
 
          const session = await stripe.checkout.sessions.create({
-            payment_method_types: ["card"],
             line_items: lineItems,
             mode: "payment",
             success_url: "https://wp-headless-pi.vercel.app/bedankt",
@@ -85,6 +81,7 @@ export default async function handler(req, res) {
                   shipping_rate: shippingRateId,
                },
             ],
+            payment_method_configuration: "pmc_1PjLH7J1EDSVBNMysvQVadmS",
          });
 
          res.status(200).json({ id: session.id });

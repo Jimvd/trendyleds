@@ -19,7 +19,7 @@ const VariantSelector: React.FC<VariantSelectorProps> = ({ attributes, onAttribu
    const [selectedAttributes, setSelectedAttributes] = useState<Record<string, string>>(initialSelectedAttributes);
 
    useEffect(() => {
-      console.log("Updating URL and calling onAttributesChange");
+    
       const optionSearchParams = new URLSearchParams(searchParams?.toString());
       for (const attributeName in selectedAttributes) {
          optionSearchParams.set(attributeName, selectedAttributes[attributeName]);
