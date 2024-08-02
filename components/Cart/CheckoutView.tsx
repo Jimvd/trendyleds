@@ -28,7 +28,7 @@ export const CheckoutView = ({ item }: Props) => {
       <>
          <div className="relative lg:flex p-4 shadow-md justify-between items-center">
             <div className="flex items-center">
-               <Image src={productImage.src} alt={item.product.name} width="100" height="100" />
+               <Image src={productImage?.src} alt={item.product.name} width="100" height="100" />
                <div className="flex flex-col p-4 flex-grow">
                   <p className="font-bold">{item.product.name}</p>
                   <div className="flex justify-between py-2">

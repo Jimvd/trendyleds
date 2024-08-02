@@ -27,7 +27,7 @@ export const CartItemView = ({ item }: Props) => {
    return (
       <>
          <div className="flex p-2">
-            <Image src={productImage.src} alt={item.product.name} width="50" height="50" />
+            <Image src={productImage?.src} alt={item.product.name} width="50" height="50" />
             <div className="flex flex-col ml-5">
                <p>{item.product.name}</p>
                <div className="flex">
