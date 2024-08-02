@@ -55,18 +55,24 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images }) => {
             </div>
 
             <div className="flex flex-col">
-               <Image src={images[selectedImage].src} alt={images[selectedImage].alt} width="500" height="500" />
-               <div className="flex justify-center mt-4">
-                  {images.map((_, index) => (
-                     <div
-                        key={index}
-                        onClick={() => handleImageClick(index)}
-                        className={`w-4 h-4 mx-2 rounded-full cursor-pointer ${
-                           index === selectedImage ? "bg-primary" : "bg-gray-300"
-                        }`}
-                     />
-                  ))}
-               </div>
+               {images.length > 0 ? (
+                  <>
+                     <Image src={images[selectedImage].src} alt={images[selectedImage].alt} width="500" height="500" />
+                     <div className="flex justify-center mt-4">
+                        {images.map((_, index) => (
+                           <div
+                              key={index}
+                              onClick={() => handleImageClick(index)}
+                              className={`w-4 h-4 mx-2 rounded-full cursor-pointer ${
+                                 index === selectedImage ? "bg-primary" : "bg-gray-300"
+                              }`}
+                           />
+                        ))}
+                     </div>
+                  </>
+               ) : (
+                  <div className="text-center text-gray-500">Geen afbeeldingen beschikbaar</div>
+               )}
             </div>
          </div>
       </div>
