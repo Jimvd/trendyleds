@@ -55,7 +55,7 @@ export default async function Home() {
 
             <Suspense>
                <Image
-                  src={"http://www.jpcms.nl/wp-content/uploads/2024/08/giphy-2.gif"}
+                  src={"https://www.jpcms.nl/wp-content/uploads/2024/08/giphy-2.gif"}
                   className="aspect-video w-full lg:max-h-96"
                   height={480}
                   width={270}
