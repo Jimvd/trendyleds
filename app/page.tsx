@@ -55,7 +55,7 @@ export default async function Home() {
 
             <Suspense>
                <Image
-                  src={"https://www.trendyleds.nl/wp-content/uploads/2022/09/giphy-kopie-4.gif"}
+                  src={"http://www.jpcms.nl/wp-content/uploads/2024/08/giphy-2.gif"}
                   className="aspect-video w-full lg:max-h-96"
                   height={480}
                   width={270}
