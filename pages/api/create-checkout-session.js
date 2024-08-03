@@ -70,8 +70,8 @@ export default async function handler(req, res) {
          const session = await stripe.checkout.sessions.create({
             line_items: lineItems,
             mode: "payment",
-            success_url: "https://wp-headless-pi.vercel.app/bedankt",
-            cancel_url: "https://wp-headless-pi.vercel.app",
+            success_url: "https://www.trendyleds.nl/bedankt",
+            cancel_url: "https://www.trendyleds.nl",
             metadata: {
                billing_info: billingInfoString,
                productDetails: productDetails,
